@@ -98,9 +98,27 @@ public class Driver{
   			Port out = (Port) itr2.next();
             System.out.println(out.getID() + "\t" + out.getType());
         }
-
-		
-
-	}
+        System.out.println("Workflow Constituents:");
+        for(int i =0; i < constituents.length; i++){
+        	System.out.println(constituents[i].getID());
+        }
+        System.out.println("Data Products:");
+        for(int i =0; i < dataProducts.length; i++){
+        	System.out.println(dataProducts[i].getID() + "\t" + dataProducts[i].getValue() + "\t" + dataProducts[i].getType());
+        }
+        System.out.println("Data Channels:");
+        for(int i =0; i < dcin.length; i++){
+        	System.out.println(dcin[i].getInPort().getID() + "\t" + dcin[i].getOutPort());
+        }
+        for(int i =0; i < dcout.length; i++){
+        	System.out.println(dcout[i].getInPort().getID() + "\t" + dcout[i].getOutPort().getID());
+        }
+        for(int i =0; i < dcmid.length; i++){
+        	System.out.println(dcmid[i].getInPort().getID() + "\t" + dcmid[i].getOutPort().getID());
+        }
+        for(int i =0; i < dcidp.length; i++){
+        	System.out.println(dcidp[i].getDataProduct().getID() + "\t" + dcidp[i].getOutPort().getID());
+        }
+   }
 }
 
