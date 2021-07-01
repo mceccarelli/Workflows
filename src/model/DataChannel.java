@@ -1,5 +1,5 @@
 // This is the DataChannel class.
-
+package model;
 public class DataChannel {
   // The parts of a DataChannel
   private Workflow in;

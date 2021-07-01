@@ -1,5 +1,5 @@
 // This is the Workflow class.
-
+package model;
 import java.lang.*;
 import java.util.*;
 
@@ -30,8 +30,8 @@ class Workflow {
     this.dcout = dcout;
     this.dcmid = dcmid;
     this.dcidp = dcidp;
-
-    if (inputs.length != 0 && outputs.length != 0 && (workflows.length == dataProducts.length == dcin.length == dcout.length == dcmid.length = dcidp.length == 0)) {
+    /* we can add other conditions later ...*/
+    if (inputs.length != 0 && outputs.length != 0) {
       isPrimitive = true;
       isComposite = false;
     } else {
