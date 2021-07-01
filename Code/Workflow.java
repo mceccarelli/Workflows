@@ -15,6 +15,10 @@ class Workflow {
   private DataChannel[] dcmid;
   private DataChannel[] dcidp;
 
+  // Descriptions for this Workflow
+  private boolean isPrimitive;
+  private boolean isComposite;
+
   // Constructor for this class
   public Workflow(String id, Port[] inputs, Port[] outputs, Workflow[] workflows, DataProduct[] dataProducts, DataChannel[] dcin, DataChannel[] dcout, DataChannel[] dcmid, DataChannel[] dcidp) {
     this.id = id;
@@ -26,6 +30,14 @@ class Workflow {
     this.dcout = dcout;
     this.dcmid = dcmid;
     this.dcidp = dcidp;
+
+    if (inputs.length != 0 && outputs.length != 0 && (workflows.length == dataProducts.length == dcin.length == dcout.length == dcmid.length = dcidp.length == 0)) {
+      isPrimitive = true;
+      isComposite = false;
+    } else {
+      isPrimitive = false;
+      isComposite = true;
+    }
   }
 
   // Getter methods for a Workflow
@@ -57,4 +69,10 @@ class Workflow {
     return dcidp;
   }
 
+  public boolean isPrimitive() {
+    return isPrimitive;
+  }
+  public boolean isComposite() {
+    return isComposite;
+  }
 }
