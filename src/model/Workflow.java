@@ -3,11 +3,11 @@ package model;
 import java.lang.*;
 import java.util.*;
 
-class Workflow {
+public class Workflow {
   // The 9-tuple which builds the Workflow.
   private String id;
-  private Port[] inputs;
-  private Port[] outputs;
+  private HashSet<Port> inputs;
+  private HashSet<Port> outputs;
   private Workflow[] workflows;
   private DataProduct[] dataProducts;
   private DataChannel[] dcin;
@@ -20,7 +20,7 @@ class Workflow {
   private boolean isComposite;
 
   // Constructor for this class
-  public Workflow(String id, Port[] inputs, Port[] outputs, Workflow[] workflows, DataProduct[] dataProducts, DataChannel[] dcin, DataChannel[] dcout, DataChannel[] dcmid, DataChannel[] dcidp) {
+  public Workflow(String id, HashSet<Port> inputs, HashSet<Port> outputs, Workflow[] workflows, DataProduct[] dataProducts, DataChannel[] dcin, DataChannel[] dcout, DataChannel[] dcmid, DataChannel[] dcidp) {
     this.id = id;
     this.inputs = inputs;
     this.outputs = outputs;
@@ -31,10 +31,11 @@ class Workflow {
     this.dcmid = dcmid;
     this.dcidp = dcidp;
     /* we can add other conditions later ...*/
-    if (inputs.length != 0 && outputs.length != 0) {
+    if (inputs.size() != 0 && outputs.size() != 0 && (workflows.length == 0 && dataProducts.length == 0 && dcin.length == 0 && dcout.length == 0 && dcmid.length == 0 && dcidp.length == 0)) {
       isPrimitive = true;
       isComposite = false;
-    } else {
+    } 
+    if ((workflows.length != 0 && inputs.size() != 0 && outputs.size() != 0 && dcin.length != 0 && dcmid.length != 0) || (workflows.length != 0 && outputs.size() != 0 && dataProducts.length != 0 && dcidp.length != 0)){
       isPrimitive = false;
       isComposite = true;
     }
@@ -44,10 +45,10 @@ class Workflow {
   public String getID() {
     return id;
   }
-  public Port[] getInputs() {
+  public HashSet<Port> getInputs() {
     return inputs;
   }
-  public Port[] getOutputs() {
+  public HashSet<Port> getOutputs() {
     return outputs;
   }
   public Workflow[] getWorkflows() {

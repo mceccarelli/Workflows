@@ -2,30 +2,29 @@
 package model;
 public class DataChannel {
   // The parts of a DataChannel
-  private Workflow in;
-  private Workflow out;
-  private Port input;
-  private Port output;
-
+  private Port in;
+  private Port out;
+  private DataProduct dp;
+  
   // Constructor for the class
-  public DataChannel(Workflow in, Workflow out, Port input, Port output) {
+  public DataChannel(Port in, Port out) {
     this.in = in;
     this.out = out;
-    this.input = input;
-    this.output = output;
+  }
+  public DataChannel(DataProduct in, Port out) {
+    this.dp = in;
+    this.out = out;
   }
 
   // Getter methods for each part
-  public Workflow getInWorkflow() {
+  public Port getInPort() {
     return in;
   }
-  public Workflow getOutWorkflow() {
+  public Port getOutPort() {
     return out;
   }
-  public Port getInput() {
-    return input;
+  public DataProduct getDataProduct() {
+    return dp;
   }
-  public Port getOutput() {
-    return output;
-  }
+  
 }
