@@ -15,7 +15,6 @@ public class DataChannel {
     this.dp = in;
     this.out = out;
   }
-
   // Getter methods for each part
   public Port getInPort() {
     return in;

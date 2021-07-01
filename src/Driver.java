@@ -9,7 +9,7 @@ public class Driver{
 		HashSet <Port> not_outputs = new HashSet <Port>();
 		Port not_ip1 = new Port("ip1","bool");
 		not_inputs.add(not_ip1);
-		Port not_op1 = new Port("op1","bool");
+		Port not_op1 = new Port("op2","bool");
 		not_outputs.add(not_op1);
 		inputs.addAll(not_inputs);
 		outputs.addAll(not_outputs);
@@ -63,7 +63,7 @@ public class Driver{
 		constituents[0] = not;
 		constituents[1] = increment;
 
-		DataProduct[] dataProducts = new DataProduct[0];
+		DataProduct[] dataProducts = new DataProduct[1];
 		DataProduct dp0 = new DataProduct("dp0","true","bool");
 		dataProducts[0] = dp0;
 		
@@ -83,6 +83,23 @@ public class Driver{
 		dcout[0] = dcout1;				
 
 		Workflow wa = new Workflow("wa",inputs,outputs,constituents,dataProducts,dcin,dcout,dcmid,dcidp);
+
+		// displaying details related to workflow. 
+		System.out.println("Workflow ID:\t" + wa.getID());
+		System.out.println("Workflow Inputs:");
+		Iterator itr1 = wa.getInputs().iterator();
+  		while (itr1.hasNext()) {
+  			Port in = (Port) itr1.next();
+            System.out.println(in.getID() + "\t" + in.getType());
+        }
+        System.out.println("Workflow Outputs:");
+        Iterator itr2 = wa.getOutputs().iterator();
+  		while (itr2.hasNext()) {
+  			Port out = (Port) itr2.next();
+            System.out.println(out.getID() + "\t" + out.getType());
+        }
+
+		
 
 	}
 }
