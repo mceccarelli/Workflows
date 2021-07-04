@@ -11,6 +11,11 @@ public class Port {
     this.type = type;
   }
 
+  // toString overriding
+  public String toString() {
+    return id + ": " + type;
+  }
+
   // Getter methods for the class
   public String getID() {
     return id;
@@ -18,5 +23,5 @@ public class Port {
   public String getType() {
     return type;
   }
-  
+
 }

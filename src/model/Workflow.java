@@ -1,5 +1,6 @@
 // This is the Workflow class.
 package model;
+
 import java.lang.*;
 import java.util.*;
 
@@ -39,6 +40,60 @@ public class Workflow {
       isPrimitive = false;
       isComposite = true;
     }
+  }
+
+  // toString overriding
+  public String toString() {
+    Iterator itr1 = inputs.iterator();
+    ArrayList<String> inputsArray = new ArrayList<String>();
+    while (itr1.hasNext()) {
+      Port in = (Port)(itr1.next());
+      inputsArray.add(in.toString());
+    }
+
+    Iterator itr2 = inputs.iterator();
+    ArrayList<String> outputsArray = new ArrayList<String>();
+    while (itr2.hasNext()) {
+      Port out = (Port)(itr2.next());
+      outputsArray.add(out.toString());
+    }
+
+    ArrayList<String> dataprod = new ArrayList<String>();
+    for (int i = 0; i < dataProducts.length; i += 1) {
+      dataprod.add(dataProducts[i].toString());
+    }
+
+    ArrayList<String> datain = new ArrayList<String>();
+    for (int i = 0; i < dcin.length; i += 1) {
+      datain.add(dcin[i].toString());
+    }
+
+    ArrayList<String> dataout = new ArrayList<String>();
+    for (int i = 0; i < dcout.length; i += 1) {
+      dataout.add(dcout[i].toString());
+    }
+
+    ArrayList<String> datamid = new ArrayList<String>();
+    for (int i = 0; i < dcmid.length; i += 1) {
+      datamid.add(dcmid[i].toString());
+    }
+
+    ArrayList<String> dataidp = new ArrayList<String>();
+    for (int i = 0; i < dcidp.length; i += 1) {
+      dataidp.add(dcidp[i].toString());
+    }
+
+    return ""
+    + "ID: " + id + "\n"
+    + "Inputs: " + inputsArray + "\n"
+    + "Outputs: " + outputsArray + "\n"
+    + "Workflows: " + workflow[0].getId() + "\n"
+    + "Data Products: " + dataprod + "\n"
+    + "Data Channels" + "\n"
+    + "In: " + datain + "\n"
+    + "Out: " + dataout + "\n"
+    + "Mid: " + datamid + "\n"
+    + "IDP: " + dataidp;
   }
 
   // Getter methods for a Workflow

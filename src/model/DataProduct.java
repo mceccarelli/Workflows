@@ -13,6 +13,11 @@ public class DataProduct {
     this.type = type;
   }
 
+  // toString overriding
+  public String toString() {
+    return id + ": " + type + " = " + value;
+  }
+
   // Getter methods for the variables
   public String getID() {
     return id;
