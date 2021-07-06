@@ -34,7 +34,7 @@ public class Driver{
 		HashSet <Port> increment_outputs = new HashSet <Port>();
 		Port increment_ip3 = new Port("ip3","int");
 		increment_inputs.add(increment_ip3);
-		Port increment_op4 = new Port("op4","bool");
+		Port increment_op4 = new Port("op4","int");
 		increment_outputs.add(increment_op4);
 		inputs.addAll(increment_inputs);
 		outputs.addAll(increment_outputs);
@@ -50,8 +50,81 @@ public class Driver{
 		return primitive_increment;
 	}
 
-	public static void main(String[] args){
-		System.out.println("Welcome to Workflow Executor");
+	public static Workflow modelDecrement() {
+		// definining ports for increment primitive workflow
+		HashSet <Port> decrement_inputs = new HashSet <Port>();
+		HashSet <Port> decrement_outputs = new HashSet <Port>();
+		Port decrement_ip3 = new Port("ip3","int");
+		decrement_inputs.add(decrement_ip3);
+		Port decrement_op4 = new Port("op4","int");
+		decrement_outputs.add(decrement_op4);
+		inputs.addAll(decrement_inputs);
+		outputs.addAll(decrement_outputs);
+
+		// empty fields for primitive workfows.
+		Workflow[] constituents = new Workflow[0];
+		DataProduct[] dataProducts = new DataProduct[0];
+		DataChannel[] dcin = new DataChannel[0];
+		DataChannel[] dcout = new DataChannel[0];
+		DataChannel[] dcmid = new DataChannel[0];
+		DataChannel[] dcidp = new DataChannel[0];
+		Workflow primitive_decrement = new Workflow("decrement",decrement_inputs,decrement_outputs,constituents,dataProducts,dcin,dcout,dcmid,dcidp);
+		return primitive_decrement;
+	}
+
+	public static Workflow modelSqrt() {
+		// definining ports for increment primitive workflow
+		HashSet <Port> sqrt_inputs = new HashSet <Port>();
+		HashSet <Port> sqrt_outputs = new HashSet <Port>();
+		Port sqrt_ip1 = new Port("ip1","float");
+		sqrt_inputs.add(sqrt_ip1);
+		Port sqrt_op1 = new Port("op2","float");
+		sqrt_outputs.add(sqrt_op1);
+		inputs.addAll(sqrt_inputs);
+		outputs.addAll(sqrt_outputs);
+
+		// empty fields for primitive workfows.
+		Workflow[] constituents = new Workflow[0];
+		DataProduct[] dataProducts = new DataProduct[0];
+		DataChannel[] dcin = new DataChannel[0];
+		DataChannel[] dcout = new DataChannel[0];
+		DataChannel[] dcmid = new DataChannel[0];
+		DataChannel[] dcidp = new DataChannel[0];
+
+		Workflow primitive_sqrt = new Workflow("sqrt",sqrt_inputs,sqrt_outputs,constituents,dataProducts,dcin,dcout,dcmid,dcidp);
+		return primitive_sqrt;
+
+	}
+
+	public static Workflow modelMean() {
+		// definining ports for increment primitive workflow
+		HashSet <Port> mean_inputs = new HashSet <Port>();
+		HashSet <Port> mean_outputs = new HashSet <Port>();
+		Port mean_ip1 = new Port("ip1","float");
+		Port mean_ip2 = new Port("ip2","float");
+		Port mean_ip3 = new Port("ip3","float");
+		mean_inputs.add(mean_ip1);
+		mean_inputs.add(mean_ip2);
+		mean_inputs.add(mean_ip3);
+		Port mean_op1 = new Port("op2","float");
+		mean_outputs.add(mean_op1);
+		inputs.addAll(mean_inputs);
+		outputs.addAll(mean_outputs);
+
+		// empty fields for primitive workfows.
+		Workflow[] constituents = new Workflow[0];
+		DataProduct[] dataProducts = new DataProduct[0];
+		DataChannel[] dcin = new DataChannel[0];
+		DataChannel[] dcout = new DataChannel[0];
+		DataChannel[] dcmid = new DataChannel[0];
+		DataChannel[] dcidp = new DataChannel[0];
+
+		Workflow primitive_mean = new Workflow("mean",mean_inputs,mean_outputs,constituents,dataProducts,dcin,dcout,dcmid,dcidp);
+		return primitive_mean;
+
+	}
+
+	public static Workflow modelA() {
 		Workflow not = modelNot();
 		Workflow increment = modelIncrement();
 		// Model Wa
@@ -85,49 +158,31 @@ public class Driver{
 		dcout[0] = dcout1;
 
 		Workflow wa = new Workflow("wa",inputs,outputs,constituents,dataProducts,dcin,dcout,dcmid,dcidp);
+		return wa;
+	}
+
+	public static Workflow modelD() {
+		Workflow mean = modelMean();
+		Workflow sqrt = modelSqrt();
+
+		HashSet <Port> wd_outputs = new HashSet <Port>();
+		Port wd_op9 = new Port("op9","float");
+		wd_outputs.add(wd_op9);
+		outputs.addAll(wd_outputs);
 
 
+	}
+
+	public static void main(String[] args) {
+		System.out.println("\n\nWelcome to Workflow Executor\n");
+
+		System.out.println("Workflow A:");
+		Workflow wa = modelA();
 		System.out.println(wa.toString());
-		
-		System.out.println("\n\n\n\n\n");
-		// displaying details related to workflow.
-		System.out.println("Workflow ID:\t" + wa.getID());
-		System.out.println("Workflow Inputs:");
 
+		System.out.println("\nWorkflow D:");
+		Workflow wd = modelD();
+		System.out.println(wd.toString());
 
-		Iterator itr1 = wa.getInputs().iterator();
-  		while (itr1.hasNext()) {
-  			Port in = (Port) itr1.next();
-            System.out.println(in.getID() + "\t" + in.getType());
-      }
-
-
-        System.out.println("Workflow Outputs:");
-        Iterator itr2 = wa.getOutputs().iterator();
-  		while (itr2.hasNext()) {
-  			Port out = (Port) itr2.next();
-            System.out.println(out.getID() + "\t" + out.getType());
-      }
-        System.out.println("Workflow Constituents:");
-        for(int i =0; i < constituents.length; i++){
-        	System.out.println(constituents[i].getID());
-        }
-        System.out.println("Data Products:");
-        for(int i =0; i < dataProducts.length; i++){
-        	System.out.println(dataProducts[i].getID() + "\t" + dataProducts[i].getValue() + "\t" + dataProducts[i].getType());
-        }
-        System.out.println("Data Channels:");
-        for(int i =0; i < dcin.length; i++){
-        	System.out.println(dcin[i].getInPort().getID() + "\t" + dcin[i].getOutPort());
-        }
-        for(int i =0; i < dcout.length; i++){
-        	System.out.println(dcout[i].getInPort().getID() + "\t" + dcout[i].getOutPort().getID());
-        }
-        for(int i =0; i < dcmid.length; i++){
-        	System.out.println(dcmid[i].getInPort().getID() + "\t" + dcmid[i].getOutPort().getID());
-        }
-        for(int i =0; i < dcidp.length; i++){
-        	System.out.println(dcidp[i].getDataProduct().getID() + "\t" + dcidp[i].getOutPort().getID());
-        }
    }
 }
