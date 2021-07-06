@@ -2,6 +2,7 @@
 package model;
 public class Port {
   // The parts of a Port
+  private int number;
   private String id;
   private String type;
 
@@ -13,10 +14,13 @@ public class Port {
 
   // toString overriding
   public String toString() {
-    return id + ": " + type;
+    return id + number + ": " + type;
   }
 
   // Getter methods for the class
+  public int getNumber() {
+    return number;
+  }
   public String getID() {
     return id;
   }
