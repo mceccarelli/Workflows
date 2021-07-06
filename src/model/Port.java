@@ -1,20 +1,21 @@
 // This is the Port class.
 package model;
-public class Port {
+public class Port<T> {
   // The parts of a Port
   private int number;
   private String id;
-  private String type;
+  // private String type;
 
   // Constructor for a Port
-  public Port(String id, int number, String type) {
+  public Port(String id, int number/*, String type*/) {
     this.id = id;
-    this.type = type;
+    this.number = number;
+    // this.type = type;
   }
 
   // toString overriding
   public String toString() {
-    return id + number + ": " + type;
+    return id + number + ": " + T.getClass().getSimpleName();
   }
 
   // Getter methods for the class
@@ -24,7 +25,9 @@ public class Port {
   public String getID() {
     return id;
   }
+  /*
   public String getType() {
     return type;
   }
+  */
 }

@@ -1,4 +1,5 @@
 import java.util.*;
+import java.lang.*;
 import model.*;
 public class Driver{
 	private static HashSet <Port> inputs = new HashSet <Port>();
@@ -205,8 +206,9 @@ public class Driver{
 	}
 */
 	public static void main(String[] args) {
+		Port p;
 		for (int i = 0; i < 4; i += 1) {
-			Port p = new Port("ip", i, "int");
+			p = new Port<Integer>("ip", i);
 			System.out.println(p);
 		}
   }
