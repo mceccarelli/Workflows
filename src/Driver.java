@@ -3,7 +3,7 @@ import model.*;
 public class Driver{
 	private static HashSet <Port> inputs = new HashSet <Port>();
 	private static HashSet <Port> outputs = new HashSet <Port>();
-
+/*
 	public static Workflow modelNot() {
 		// definining ports for increment primitive workflow
 		HashSet <Port> not_inputs = new HashSet <Port>();
@@ -203,17 +203,8 @@ public class Driver{
 		Workflow wd = new Workflow("wd",inputs,outputs,constituents,dataProducts,dcin,dcout,dcmid,dcidp);
 		return wd;
 	}
-
+*/
 	public static void main(String[] args) {
-		System.out.println("\n\nWelcome to Workflow Executor\n");
-
-		System.out.println("Workflow A:");
-		Workflow wa = modelA();
-		System.out.println(wa.toString());
-
-		System.out.println("\nWorkflow D:");
-		Workflow wd = modelD();
-		System.out.println(wd.toString());
-
-   }
+		
+  }
 }
