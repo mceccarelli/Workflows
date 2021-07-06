@@ -5,7 +5,7 @@ public class DataChannel {
   private Port in;
   private Port out;
   private DataProduct dp;
-  
+
   // Constructor for the class
   public DataChannel(Port in, Port out) {
     this.in = in;
@@ -15,6 +15,16 @@ public class DataChannel {
     this.dp = in;
     this.out = out;
   }
+
+  // toString overriding
+  public String toString() {
+    if (dp == null) {
+      return in.toString() + " | " + out.toString();
+    } else {
+      return dp.toString() + " | " + out.toString();
+    }
+  }
+
   // Getter methods for each part
   public Port getInPort() {
     return in;
@@ -25,5 +35,5 @@ public class DataChannel {
   public DataProduct getDataProduct() {
     return dp;
   }
-  
+
 }
