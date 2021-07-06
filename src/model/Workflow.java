@@ -18,6 +18,10 @@ public class Workflow {
   // Descriptions for this Workflow
   private boolean isPrimitive;
   private boolean isComposite;
+  
+  private String executableName;
+  private String executableInput;
+
 
   // Constructor for this class
   public Workflow(String id, HashSet<Port> inputs, HashSet<Port> outputs, Workflow[] workflows, DataProduct[] dataProducts, DataChannel[] dcin, DataChannel[] dcout, DataChannel[] dcmid, DataChannel[] dcidp) {
@@ -76,4 +80,17 @@ public class Workflow {
   public boolean isComposite() {
     return isComposite;
   }
+  public void setExecutableName(String name) {
+    this.executableName = name;
+  }
+  public String getExecutableName() {
+    return this.executableName;
+  }
+  public void setExecutableInput(String input) {
+    this.executableInput = input;
+  }
+  public String getExecutableInput() {
+    return this.executableInput;
+  }
+
 }

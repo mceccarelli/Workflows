@@ -1,8 +1,10 @@
 import java.util.*;
 import model.*;
+import executor.*;
 public class Driver{
 	private static HashSet <Port> inputs = new HashSet <Port>();
 	private static HashSet <Port> outputs = new HashSet <Port>();
+	
 	public static Workflow modelNot(){
 		// definining ports for increment primitive workflow
 		HashSet <Port> not_inputs = new HashSet <Port>();
@@ -23,6 +25,7 @@ public class Driver{
 		DataChannel[] dcidp = new DataChannel[0];
 		
 		Workflow primitive_not = new Workflow("not",not_inputs,not_outputs,constituents,dataProducts,dcin,dcout,dcmid,dcidp);
+		primitive_not.setExecutableName("primitive.Not");
 		return primitive_not;
 
 	}
@@ -45,6 +48,7 @@ public class Driver{
 		DataChannel[] dcmid = new DataChannel[0];
 		DataChannel[] dcidp = new DataChannel[0];
 		Workflow primitive_increment = new Workflow("increment",increment_inputs,increment_outputs,constituents,dataProducts,dcin,dcout,dcmid,dcidp);
+		primitive_increment.setExecutableName("primitive.Increment");
 		return primitive_increment;
 
 	}
@@ -100,7 +104,7 @@ public class Driver{
         }
         System.out.println("Workflow Constituents:");
         for(int i =0; i < constituents.length; i++){
-        	System.out.println(constituents[i].getID());
+        	System.out.println(constituents[i].getID() + "\t" + constituents[i].isPrimitive() + "\t" + constituents[i].isComposite());
         }
         System.out.println("Data Products:");
         for(int i =0; i < dataProducts.length; i++){
@@ -119,6 +123,17 @@ public class Driver{
         for(int i =0; i < dcidp.length; i++){
         	System.out.println(dcidp[i].getDataProduct().getID() + "\t" + dcidp[i].getOutPort().getID());
         }
+
+        Utility util = new Utility();
+        ArrayList<Workflow> wfs= util.findStartVertices(wa);
+        int wfc = 0;
+        while (wfs.size() != 0){
+			util.giveInitialInputs(wa,wfs.get(wfc));
+			util.executeWorkflow(wa, wfs.get(wfc));
+			wfs.remove(wfs.get(wfc));
+			wfc++;
+        }
+
+        
    }
 }
-
