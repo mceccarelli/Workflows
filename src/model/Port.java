@@ -7,9 +7,9 @@ public class Port {
   private String type;
 
   // Constructor for a Port
-  public Port(String id, int number) {
+  public Port(String id, int number, String type) {
     this.id = id;
-    // this.type = type;
+    this.type = type;
   }
 
   // toString overriding

@@ -205,6 +205,9 @@ public class Driver{
 	}
 */
 	public static void main(String[] args) {
-		
+		for (int i = 0; i < 4; i += 1) {
+			Port p = new Port("ip", i, "int");
+			System.out.println(p);
+		}
   }
 }
