@@ -170,7 +170,38 @@ public class Driver{
 		wd_outputs.add(wd_op9);
 		outputs.addAll(wd_outputs);
 
+		Workflow[] constituents = new Workflow[2];
+		constituents[0] = mean;
+		constituents[1] = sqrt;
 
+		DataProduct[] dataProducts = new DataProduct[3];
+		DataProduct dp0 = new DataProduct("dp0","3","int");
+		dataProducts[0] = dp0;
+		DataProduct dp1 = new DataProduct("dp1","5","int");
+		dataProducts[1] = dp1;
+		DataProduct dp2 = new DataProduct("dp2","4","int");
+		dataProducts[2] = dp2;
+
+		DataChannel[] dcidp = new DataChannel[3];
+		DataChannel dcidp1 = new DataChannel(dp0, mean.getInputs().stream().findFirst().get());
+		dcidp[0] = dcidp1;
+		DataChannel dcidp2 = new DataChannel(dp1, mean.getInputs().stream().findFirst().get());
+		dcidp[1] = dcidp2;
+		DataChannel dcidp3 = new DataChannel(dp2, mean.getInputs().stream().findFirst().get());
+		dcidp[2] = dcidp3;
+
+		DataChannel[] dcin = new DataChannel[0];
+
+		DataChannel[] dcmid = new DataChannel[1];
+		DataChannel dcmid1 = new DataChannel(mean.getOutputs().stream().findFirst().get(), sqrt.getInputs().stream().findFirst().get());
+		dcmid[0] = dcmid1;
+
+		DataChannel[] dcout = new DataChannel[1];
+		DataChannel dcout1 = new DataChannel(sqrt.getOutputs().stream().findFirst().get(), wd_op9);
+		dcout[0] = dcout1;
+
+		Workflow wd = new Workflow("wd",inputs,outputs,constituents,dataProducts,dcin,dcout,dcmid,dcidp);
+		return wd;
 	}
 
 	public static void main(String[] args) {
