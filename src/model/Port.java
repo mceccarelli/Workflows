@@ -25,7 +25,6 @@ public class Port<T> {
   public String getID() {
     return id;
   }
-
   public String getType() {
     return type;
   }

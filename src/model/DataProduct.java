@@ -22,11 +22,9 @@ public class DataProduct<T> {
   public String getID() {
     return id;
   }
-  
   public T getValue() {
     return value;
   }
-
   public String getType() {
     return type;
   }

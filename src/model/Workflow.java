@@ -36,7 +36,7 @@ public class Workflow {
       isPrimitive = true;
       isComposite = false;
     }
-    if ((constituents.length != 0 && inputs.size() != 0 && outputs.size() != 0 && dcin.length != 0 && dcmid.length != 0) || (constituents.length != 0 && outputs.size() != 0 && dataProducts.length != 0 && dcidp.length != 0)){
+    if ((constituents.length != 0 && inputs.size() != 0 && outputs.size() != 0 && dcin.length != 0 && dcmid.length != 0) || (constituents.length != 0 && outputs.size() != 0 && dataProducts.length != 0 && dcidp.length != 0)) {
       isPrimitive = false;
       isComposite = true;
     }
