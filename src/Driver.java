@@ -1,14 +1,15 @@
-import java.util.*;
 import java.lang.*;
+import java.util.*;
 import model.*;
+
 public class Driver{
-	private static HashSet <Port> inputs = new HashSet <Port>();
-	private static HashSet <Port> outputs = new HashSet <Port>();
+	private static ArrayList <Port> inputs = new ArrayList <Port>();
+	private static ArrayList <Port> outputs = new ArrayList <Port>();
 /*
 	public static Workflow modelNot() {
 		// definining ports for increment primitive workflow
-		HashSet <Port> not_inputs = new HashSet <Port>();
-		HashSet <Port> not_outputs = new HashSet <Port>();
+		ArrayList <Port> not_inputs = new ArrayList <Port>();
+		ArrayList <Port> not_outputs = new ArrayList <Port>();
 		Port not_ip1 = new Port("ip1","bool");
 		not_inputs.add(not_ip1);
 		Port not_op1 = new Port("op2","bool");
@@ -31,8 +32,8 @@ public class Driver{
 
 	public static Workflow modelIncrement() {
 		// definining ports for increment primitive workflow
-		HashSet <Port> increment_inputs = new HashSet <Port>();
-		HashSet <Port> increment_outputs = new HashSet <Port>();
+		ArrayList <Port> increment_inputs = new ArrayList <Port>();
+		ArrayList <Port> increment_outputs = new ArrayList <Port>();
 		Port increment_ip3 = new Port("ip3","int");
 		increment_inputs.add(increment_ip3);
 		Port increment_op4 = new Port("op4","int");
@@ -53,8 +54,8 @@ public class Driver{
 
 	public static Workflow modelDecrement() {
 		// definining ports for increment primitive workflow
-		HashSet <Port> decrement_inputs = new HashSet <Port>();
-		HashSet <Port> decrement_outputs = new HashSet <Port>();
+		ArrayList <Port> decrement_inputs = new ArrayList <Port>();
+		ArrayList <Port> decrement_outputs = new ArrayList <Port>();
 		Port decrement_ip3 = new Port("ip3","int");
 		decrement_inputs.add(decrement_ip3);
 		Port decrement_op4 = new Port("op4","int");
@@ -75,8 +76,8 @@ public class Driver{
 
 	public static Workflow modelSqrt() {
 		// definining ports for increment primitive workflow
-		HashSet <Port> sqrt_inputs = new HashSet <Port>();
-		HashSet <Port> sqrt_outputs = new HashSet <Port>();
+		ArrayList <Port> sqrt_inputs = new ArrayList <Port>();
+		ArrayList <Port> sqrt_outputs = new ArrayList <Port>();
 		Port sqrt_ip1 = new Port("ip1","float");
 		sqrt_inputs.add(sqrt_ip1);
 		Port sqrt_op1 = new Port("op2","float");
@@ -99,8 +100,8 @@ public class Driver{
 
 	public static Workflow modelMean() {
 		// definining ports for increment primitive workflow
-		HashSet <Port> mean_inputs = new HashSet <Port>();
-		HashSet <Port> mean_outputs = new HashSet <Port>();
+		ArrayList <Port> mean_inputs = new ArrayList <Port>();
+		ArrayList <Port> mean_outputs = new ArrayList <Port>();
 		Port mean_ip1 = new Port("ip1","float");
 		Port mean_ip2 = new Port("ip2","float");
 		Port mean_ip3 = new Port("ip3","float");
@@ -129,7 +130,7 @@ public class Driver{
 		Workflow not = modelNot();
 		Workflow increment = modelIncrement();
 		// Model Wa
-		HashSet <Port> wa_outputs = new HashSet <Port>();
+		ArrayList <Port> wa_outputs = new ArrayList <Port>();
 		Port wa_op5 = new Port("op5","int");
 		wa_outputs.add(wa_op5);
 		outputs.addAll(wa_outputs);
@@ -166,7 +167,7 @@ public class Driver{
 		Workflow mean = modelMean();
 		Workflow sqrt = modelSqrt();
 
-		HashSet <Port> wd_outputs = new HashSet <Port>();
+		ArrayList <Port> wd_outputs = new ArrayList <Port>();
 		Port wd_op9 = new Port("op9","float");
 		wd_outputs.add(wd_op9);
 		outputs.addAll(wd_outputs);
@@ -206,10 +207,54 @@ public class Driver{
 	}
 */
 	public static void main(String[] args) {
-		Port p;
-		for (int i = 0; i < 4; i += 1) {
-			p = new Port<Integer>("ip", i);
-			System.out.println(p);
-		}
+		// Mock Workflow
+		Port input = new Port<Integer>("ip", 0);
+		Port inInc = new Port<Integer>("ip", 1);
+		DataChannel inToInc = new DataChannel(input, inInc);
+		Port outInc = new Port<Integer>("op", 2);
+		inputs.add(inInc);
+		outputs.add(outInc);
+
+		Workflow[] constituent = new Workflow[0];
+		DataProduct[] dataProduct = new DataProduct[0];
+		DataChannel[] dci = new DataChannel[0];
+		DataChannel[] dcou = new DataChannel[0];
+		DataChannel[] dcmi = new DataChannel[0];
+		DataChannel[] dcid = new DataChannel[0];
+
+		Workflow increment = new Workflow("increment", inputs, outputs, constituent, dataProduct, dci, dcou, dcmi, dcid);
+		Port output = new Port<Integer>("op", 3);
+		DataChannel outOfInc = new DataChannel(outInc, output);
+
+		String name = "My Workflow";
+
+		ArrayList<Port> workIn = new ArrayList<Port>();
+		workIn.add(input);
+		workIn.add(inInc);
+		ArrayList<Port> workOut = new ArrayList<Port>();
+		workOut.add(output);
+		workOut.add(outInc);
+
+		Workflow[] constituents = new Workflow[1];
+		constituents[0] = increment;
+
+		DataProduct[] dps = new DataProduct[0];
+
+		DataChannel[] dcin = new DataChannel[1];
+		dcin[0] = inToInc;
+
+		DataChannel[] dcout = new DataChannel[1];
+		dcout[0] = outOfInc;
+
+		DataChannel[] dcmid = new DataChannel[0];
+
+		DataChannel[] dcidp = new DataChannel[0];
+
+		Workflow wf = new Workflow(name, workIn, workOut, constituents, dps, dcin, dcout, dcmid, dcidp);
+
+		System.out.println(wf);
+//		*/
+
+
   }
 }

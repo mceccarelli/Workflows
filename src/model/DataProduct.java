@@ -1,31 +1,33 @@
 // This is the DataProduct class.
 package model;
-public class DataProduct {
+public class DataProduct<T> {
   // The parts of a DataProduct
   private String id;
-  private String value;
-  private String type;
+  private T value;
+  // private String type;
 
   // Constructor for the class
-  public DataProduct(String id, String value, String type) {
+  public DataProduct(String id, T value/*, String type*/) {
     this.id = id;
     this.value = value;
-    this.type = type;
+    // this.type = type;
   }
 
   // toString overriding
   public String toString() {
-    return id + ": " + type + " = " + value;
+    return id + ": " + T.getClass().getSimpleName() + " = " + value;
   }
 
   // Getter methods for the variables
   public String getID() {
     return id;
   }
-  public String getValue() {
+  public T getValue() {
     return value;
   }
+  /*
   public String getType() {
     return type;
   }
+  */
 }

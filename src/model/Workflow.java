@@ -7,9 +7,9 @@ import java.util.*;
 public class Workflow {
   // The 9-tuple which builds the Workflow.
   private String id;
-  private HashSet<Port> inputs;
-  private HashSet<Port> outputs;
-  private Workflow[] workflows;
+  private ArrayList<Port> inputs;
+  private ArrayList<Port> outputs;
+  private Workflow[] constituents;
   private DataProduct[] dataProducts;
   private DataChannel[] dcin;
   private DataChannel[] dcout;
@@ -21,22 +21,22 @@ public class Workflow {
   private boolean isComposite;
 
   // Constructor for this class
-  public Workflow(String id, HashSet<Port> inputs, HashSet<Port> outputs, Workflow[] workflows, DataProduct[] dataProducts, DataChannel[] dcin, DataChannel[] dcout, DataChannel[] dcmid, DataChannel[] dcidp) {
+  public Workflow(String id, ArrayList<Port> inputs, ArrayList<Port> outputs, Workflow[] constituents, DataProduct[] dataProducts, DataChannel[] dcin, DataChannel[] dcout, DataChannel[] dcmid, DataChannel[] dcidp) {
     this.id = id;
     this.inputs = inputs;
     this.outputs = outputs;
-    this.workflows = workflows;
+    this.constituents = constituents;
     this.dataProducts = dataProducts;
     this.dcin = dcin;
     this.dcout = dcout;
     this.dcmid = dcmid;
     this.dcidp = dcidp;
     /* we can add other conditions later ...*/
-    if (inputs.size() != 0 && outputs.size() != 0 && (workflows.length == 0 && dataProducts.length == 0 && dcin.length == 0 && dcout.length == 0 && dcmid.length == 0 && dcidp.length == 0)) {
+    if (inputs.size() != 0 && outputs.size() != 0 && (constituents.length == 0 && dataProducts.length == 0 && dcin.length == 0 && dcout.length == 0 && dcmid.length == 0 && dcidp.length == 0)) {
       isPrimitive = true;
       isComposite = false;
     }
-    if ((workflows.length != 0 && inputs.size() != 0 && outputs.size() != 0 && dcin.length != 0 && dcmid.length != 0) || (workflows.length != 0 && outputs.size() != 0 && dataProducts.length != 0 && dcidp.length != 0)){
+    if ((constituents.length != 0 && inputs.size() != 0 && outputs.size() != 0 && dcin.length != 0 && dcmid.length != 0) || (constituents.length != 0 && outputs.size() != 0 && dataProducts.length != 0 && dcidp.length != 0)){
       isPrimitive = false;
       isComposite = true;
     }
@@ -56,6 +56,11 @@ public class Workflow {
     while (itr2.hasNext()) {
       Port out = (Port)(itr2.next());
       outputsArray.add(out.toString());
+    }
+
+    ArrayList<String> workflows = new ArrayList<String>();
+    for (int i = 0; i < constituents.length; i += 1) {
+      workflows.add(constituents[i].getID());
     }
 
     ArrayList<String> dataprod = new ArrayList<String>();
@@ -87,7 +92,7 @@ public class Workflow {
     + "ID: " + id + "\n"
     + "Inputs: " + inputsArray + "\n"
     + "Outputs: " + outputsArray + "\n"
-    + "Workflows: " + "Workflows here" + "\n"
+    + "Constituents: " + workflows + "\n"
     + "Data Products: " + dataprod + "\n"
     + "Data Channels" + "\n"
     + "In: " + datain + "\n"
@@ -100,14 +105,14 @@ public class Workflow {
   public String getID() {
     return id;
   }
-  public HashSet<Port> getInputs() {
+  public ArrayList<Port> getInputs() {
     return inputs;
   }
-  public HashSet<Port> getOutputs() {
+  public ArrayList<Port> getOutputs() {
     return outputs;
   }
-  public Workflow[] getWorkflows() {
-    return workflows;
+  public Workflow[] getConstituents() {
+    return constituents;
   }
   public DataProduct[] getDataProducts() {
     return dataProducts;
