@@ -15,7 +15,7 @@ public class Port<T> {
 
   // toString overriding
   public String toString() {
-    return id + number + ": " + T.getClass().getSimpleName();
+    return id + number + ": " + "TYPE";// T.getClass().getSimpleName();
   }
 
   // Getter methods for the class

@@ -15,7 +15,7 @@ public class DataProduct<T> {
 
   // toString overriding
   public String toString() {
-    return id + ": " + T.getClass().getSimpleName() + " = " + value;
+    return id + ": " + "TYPE"/*T.getClass().getSimpleName()*/ + " = " + value;
   }
 
   // Getter methods for the variables
