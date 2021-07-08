@@ -22,6 +22,7 @@ public class DataProduct<T> {
   public String getID() {
     return id;
   }
+  
   public T getValue() {
     return value;
   }
@@ -29,5 +30,4 @@ public class DataProduct<T> {
   public String getType() {
     return type;
   }
-
 }

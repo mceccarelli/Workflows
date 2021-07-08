@@ -29,5 +29,4 @@ public class Port<T> {
   public String getType() {
     return type;
   }
-  
 }
