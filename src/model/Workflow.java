@@ -94,7 +94,7 @@ public class Workflow {
     + "Outputs: " + outputsArray + "\n"
     + "Constituents: " + workflows + "\n"
     + "Data Products: " + dataprod + "\n"
-    + "Data Channels" + "\n"
+    + "Data Channels:" + "\n"
     + "In: " + datain + "\n"
     + "Out: " + dataout + "\n"
     + "Mid: " + datamid + "\n"

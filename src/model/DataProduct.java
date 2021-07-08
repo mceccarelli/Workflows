@@ -4,18 +4,18 @@ public class DataProduct<T> {
   // The parts of a DataProduct
   private String id;
   private T value;
-  // private String type;
+  private String type;
 
   // Constructor for the class
-  public DataProduct(String id, T value/*, String type*/) {
+  public DataProduct(String id, T value, String type) {
     this.id = id;
     this.value = value;
-    // this.type = type;
+    this.type = type;
   }
 
   // toString overriding
   public String toString() {
-    return id + ": " + "TYPE"/*T.getClass().getSimpleName()*/ + " = " + value;
+    return id + ": " + type + " = " + value;
   }
 
   // Getter methods for the variables
@@ -25,9 +25,9 @@ public class DataProduct<T> {
   public T getValue() {
     return value;
   }
-  /*
+
   public String getType() {
     return type;
   }
-  */
+
 }

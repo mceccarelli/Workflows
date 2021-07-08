@@ -208,10 +208,10 @@ public class Driver{
 */
 	public static void main(String[] args) {
 		// Mock Workflow
-		Port input = new Port<Integer>("ip", 0);
-		Port inInc = new Port<Integer>("ip", 1);
+		Port input = new Port<Integer>("ip", 0, "int");
+		Port inInc = new Port<Integer>("ip", 1, "int");
 		DataChannel inToInc = new DataChannel(input, inInc);
-		Port outInc = new Port<Integer>("op", 2);
+		Port outInc = new Port<Integer>("op", 2, "int");
 		inputs.add(inInc);
 		outputs.add(outInc);
 
@@ -223,7 +223,7 @@ public class Driver{
 		DataChannel[] dcid = new DataChannel[0];
 
 		Workflow increment = new Workflow("increment", inputs, outputs, constituent, dataProduct, dci, dcou, dcmi, dcid);
-		Port output = new Port<Integer>("op", 3);
+		Port output = new Port<Integer>("op", 3, "int");
 		DataChannel outOfInc = new DataChannel(outInc, output);
 
 		String name = "My Workflow";
