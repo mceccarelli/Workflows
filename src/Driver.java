@@ -1,6 +1,10 @@
+import java.io.*;
 import java.util.*;
 import model.*;
-public class Driver{
+//import input.*;
+
+public class Driver {
+
 	private static HashSet <Port> inputs = new HashSet <Port>();
 	private static HashSet <Port> outputs = new HashSet <Port>();
 
@@ -205,6 +209,22 @@ public class Driver{
 	}
 
 	public static void main(String[] args) {
+		File file = null;
+		Scanner scan = null;
+
+		try {
+			file = new File("input/input.txt");
+			scan = new Scanner(file);
+
+			System.out.println(scan.nextLine());
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
+
+
+
+		/*
 		System.out.println("\n\nWelcome to Workflow Executor\n");
 
 		System.out.println("Workflow A:");
@@ -214,6 +234,6 @@ public class Driver{
 		System.out.println("\nWorkflow D:");
 		Workflow wd = modelD();
 		System.out.println(wd.toString());
-
+		*/
    }
 }
