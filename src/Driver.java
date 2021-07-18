@@ -213,12 +213,12 @@ public class Driver {
 		Scanner scan = null;
 
 		try {
-			file = new File("input/input.txt");
+			file = new File("input.txt");
 			scan = new Scanner(file);
 
 			System.out.println(scan.nextLine());
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			System.out.println("File not found!");
 		}
 
 
