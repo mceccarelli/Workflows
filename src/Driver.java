@@ -225,7 +225,11 @@ public class Driver {
 	}
 */
 
-	public static void main(String[] args) {
+	private static int[][] array;
+	private static ArrayList<String> inputs;
+	private static ArrayList<String> workflows;
+
+	private static void getInput() {
 		// Connecting Scanner to File
 		File file = null;
 		Scanner scanner = null;
@@ -239,7 +243,7 @@ public class Driver {
     // Declaring variables
     String line = scanner.nextLine();
     int num = 1 + line.charAt(line.length() - 1) - '0';
-    int[][] array = new int[num][num];
+    array = new int[num][num];
 
     // Getting matrix values
     for (int i = 1; i < num + 1; i += 1) {
@@ -254,6 +258,7 @@ public class Driver {
       } // Input numbers
     }
 
+/*
     // Outputting array
     for (int i = 0; i < array.length; i += 1) {
       for (int j = 0; j < array[i].length; j += 1) {
@@ -261,12 +266,13 @@ public class Driver {
       }
       System.out.println();
     }
+*/
 
     // Skip the space after the matrix
     scanner.nextLine();
 
 		// Get the inputs
-    ArrayList<String> inputs = new ArrayList<String>();
+    inputs = new ArrayList<String>();
     while (scanner.hasNextLine()) {
       line = scanner.nextLine();
 
@@ -278,10 +284,15 @@ public class Driver {
     }
 
 		// Get the constituents workflows
-		ArrayList<String> workflows = new ArrayList<String>();
+		workflows = new ArrayList<String>();
 		while (scanner.hasNextLine()) {
       line = scanner.nextLine();
 			workflows.add(line);
     }
+	}
+
+	public static void main(String[] args) {
+		getInput();
+
    }
 }
