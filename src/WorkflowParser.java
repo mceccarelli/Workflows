@@ -19,8 +19,7 @@ public class WorkflowParser {
     	int[][] matrix = new int[size][size];
     	return matrix;
 	}
-	public static int[][] loadMatrix(String matrixFile, int[][] matrix){
-		int[][] res_matrix = matrix;
+	public static void loadMatrix(String matrixFile, int[][] matrix){
 		try {
       		File myObj = new File(matrixFile);
 		    Scanner myReader = new Scanner(myObj);
@@ -29,7 +28,7 @@ public class WorkflowParser {
 			    String[] data = myReader.nextLine().split(" ");
 			    int col = 0;
 				for (String element: data){
-					res_matrix[row][col] = Integer.parseInt(element);					
+					matrix[row][col] = Integer.parseInt(element);					
 					col++;
 				}
 				row++;
@@ -39,7 +38,7 @@ public class WorkflowParser {
       		System.out.println("An error occurred.");
       		e.printStackTrace();
     	}
-    	return res_matrix;
+
 	}
 	public static void displayMatrix(int[][] matrix){
 		for (int i = 0; i < matrix.length; i++){
@@ -55,6 +54,7 @@ public class WorkflowParser {
 		int[][] matrix = buildMatrix(matrixFile);
 		loadMatrix(matrixFile, matrix);
 		displayMatrix(matrix);
+
     
    	}
 }
