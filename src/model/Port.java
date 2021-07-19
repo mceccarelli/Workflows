@@ -1,7 +1,7 @@
 // This is the Port class.
 package model;
 
-public class Port<T> {
+public class Port {
   // The parts of a Port
   private int number;
   private char id;

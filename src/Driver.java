@@ -229,6 +229,10 @@ public class Driver {
 	private static ArrayList<String> inputs;
 	private static ArrayList<String> workflows;
 
+	private static final String[] bools = {"Not"};
+	private static final String[] ints = {"Not", "Increment", "Decrement", "Mean", "Square"};
+	private static final String[] floats = {"Not", "Increment", "Decrement", "Mean", "Square", "Sqrt", "Divide"};
+
 	private static void getInput() {
 		// Connecting Scanner to File
 		File file = null;
@@ -293,6 +297,37 @@ public class Driver {
 
 	public static void main(String[] args) {
 		getInput();
-		
+
+
+
+
+		String id = "Michael's Workflow";
+		ArrayList<Port> in = new ArrayList<Port>();
+	  ArrayList<Port> out = new ArrayList<Port>();
+	  Workflow[] constituents;
+	  DataProduct[] dataProducts;
+	  DataChannel[] dcin;
+	  DataChannel[] dcout;
+	  DataChannel[] dcmid;
+	  DataChannel[] dcidp;
+
+
+		// Finding input type
+		int counter = 0;
+		for (int i = 0; i < inputs.get(0).length(); i += 1) {
+			if (inputs.get(0).charAt(i) == ' ') {
+				counter += 1;
+			}
+		}
+		if (counter == 1) {
+			dataProducts = new DataProduct[0];
+			dcidp = new DataChannel[0];
+		} else {
+			dcin = new DataChannel[0];
+		}
+
+
+
+
    }
 }

@@ -1,7 +1,7 @@
 // This is the DataProduct class.
 package model;
 
-public class DataProduct<T> extends Port<T> {
+public class DataProduct<T> extends Port {
   // The parts of a DataProduct
   private T value;
 
@@ -13,7 +13,7 @@ public class DataProduct<T> extends Port<T> {
 
   // toString overriding
   public String toString() {
-    return id + ": " + type + " = " + value;
+    return getID() + ": " + getType() + " = " + value;
   }
 
   // Getter methods for the variables
