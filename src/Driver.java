@@ -319,14 +319,12 @@ public class Driver {
 				counter += 1;
 			}
 		}
-		if (counter == 1) {
+		if (counter == 0) {
 			dataProducts = new DataProduct[0];
 			dcidp = new DataChannel[0];
 		} else {
 			dcin = new DataChannel[0];
 		}
-
-
 
 
    }
