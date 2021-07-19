@@ -1,5 +1,6 @@
 // This is the Port class.
 package model;
+
 public class Port<T> {
   // The parts of a Port
   private int number;
@@ -23,7 +24,7 @@ public class Port<T> {
     return number;
   }
   public String getID() {
-    return id + "p" + number;
+    return (String)(id + "p" + number);
   }
   public String getType() {
     return type;
