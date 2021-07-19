@@ -5,13 +5,13 @@ public class WorkflowParser {
 	public static int[][] buildMatrix(String matrixFile){
 		int size = 0;
 		try {
-      		File myObj = new File(matrixFile);
-		    Scanner myReader = new Scanner(myObj);
-		    while (myReader.hasNextLine()) {
-			    String data = myReader.nextLine();
+      		File file = new File(matrixFile);
+		    Scanner scan = new Scanner(file);
+		    while (scan.hasNextLine()) {
+			    String data = scan.nextLine();
 				size = data.split(" ").length;
 		    }
-		    myReader.close();
+		    scan.close();
     	} catch (FileNotFoundException e) {
       		System.out.println("An error occurred.");
       		e.printStackTrace();
@@ -21,11 +21,11 @@ public class WorkflowParser {
 	}
 	public static void loadMatrix(String matrixFile, int[][] matrix){
 		try {
-      		File myObj = new File(matrixFile);
-		    Scanner myReader = new Scanner(myObj);
+      		File file = new File(matrixFile);
+		    Scanner scan = new Scanner(file);
 		    int row = 0;
-		    while (myReader.hasNextLine()) {
-			    String[] data = myReader.nextLine().split(" ");
+		    while (scan.hasNextLine()) {
+			    String[] data = scan.nextLine().split(" ");
 			    int col = 0;
 				for (String element: data){
 					matrix[row][col] = Integer.parseInt(element);					
@@ -33,7 +33,7 @@ public class WorkflowParser {
 				}
 				row++;
 		    }
-		    myReader.close();
+		    scan.close();
     	} catch (FileNotFoundException e) {
       		System.out.println("An error occurred.");
       		e.printStackTrace();
