@@ -210,16 +210,57 @@ public class Driver {
 
 	public static void main(String[] args) {
 		File file = null;
-		Scanner scan = null;
+		Scanner scanner = null;
 
 		try {
-			file = new File("input.txt");
-			scan = new Scanner(file);
-
-			System.out.println(scan.nextLine());
+			file = new File("../input/input.txt");
+			scanner = new Scanner(file);
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found!");
 		}
+
+    // Declaring variables
+    String line = scanner.nextLine();
+    int num = 1 + line.charAt(line.length() - 1) - '0';
+    int[][] array = new int[num][num];
+
+    // Getting matrix values
+    for (int i = 1; i < num + 1; i += 1) {
+      line = scanner.nextLine();
+      for (int k = 0; k < line.length(); k += 1) {
+        if (line.charAt(k) == ' ') {
+          line = line.substring(0, k) + line.substring(k + 1, line.length());
+        }
+      } // Remove spaces
+      for (int j = 0; j < array[i - 1].length; j += 1) {
+        array[i - 1][j] = line.charAt(j + 1) - '0';
+      } // Input numbers
+    }
+
+    // Outputting array
+    for (int i = 0; i < array.length; i += 1) {
+      for (int j = 0; j < array[i].length; j += 1) {
+        System.out.print(array[i][j] + " ");
+      }
+      System.out.println();
+    }
+
+    // Skip the space after the matrix
+    scanner.nextLine();
+
+    ArrayList<String> inputs = new ArrayList<String>();
+
+    while (scanner.hasNextLine()) {
+      line = scanner.nextLine();
+
+      if (line.isEmpty()) {
+        break;
+      }
+
+			inputs.add(line);
+    }
+
+		System.out.println(inputs);
 
 
 
