@@ -75,7 +75,7 @@ public class WorkflowParser {
     	}
     	return pwfs;
 	}
-	public static void displayPWorkflows(Map<String, Map<String, String>> pwfs){
+	public static void displayAllPWorkflows(Map<String, Map<String, String>> pwfs){
 		 for (Map.Entry<String, Map<String, String>> pwf : pwfs.entrySet()) {
     	 	String workflowName = pwf.getKey();
     	 	for (Map.Entry<String, String> port : pwf.getValue().entrySet()) {
@@ -85,13 +85,34 @@ public class WorkflowParser {
     	 	}
 		 }
 	}
+	public static void displayPWorkflow(Map<String, Map<String, String>> pwfs, String pWorkflowName){
+		 boolean exist = false;
+		 for (Map.Entry<String, Map<String, String>> pwf : pwfs.entrySet()) {
+    	 	String workflowName = pwf.getKey();
+    	 	for (Map.Entry<String, String> port : pwf.getValue().entrySet()) {
+    	 		String inputPorts = port.getKey();
+    	 		String outputPorts = port.getValue();
+    	 		if (pWorkflowName.equalsIgnoreCase(workflowName)){
+    	 			System.out.println(workflowName + "\t" + inputPorts + "\t" + outputPorts);
+    	 			exist = true;
+    	 		}
+    	 	}
+		 }
+		 if (!exist)
+		 	System.out.println("primtive workflow not found ...");
+	}
 	public static void main(String[] args) {
 		String matrixFile = "../data/wa/matrix.txt";
 		String pSpecFile = "../data/primitive.spec";
 		int[][] matrix = buildMatrix(matrixFile);
 		loadMatrix(matrixFile, matrix);
 		displayMatrix(matrix);
-		displayPWorkflows(loadPWorkflows(pSpecFile));
+		Map<String, Map<String, String>> pwfs = loadPWorkflows(pSpecFile);
+		// uncomment the below line to display all pworkflows
+		// displayAllPWorkflows(pwfs);
+		
+		String pWorkflowName = "Not";
+		displayPWorkflow(pwfs, pWorkflowName);
 
     
    	}
