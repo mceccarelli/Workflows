@@ -1,37 +1,19 @@
 import java.io.*;
 import java.util.*;
+
 import model.*;
+
 public class WorkflowParser {
-	public static int[][] buildMatrix(String matrixFile){
+
+	public static int[][] buildMatrix(String matrixFile) {
 		int size = 0;
+
 		try {
-      		File file = new File(matrixFile);
+      	File file = new File(matrixFile);
 		    Scanner scan = new Scanner(file);
 		    while (scan.hasNextLine()) {
 			    String data = scan.nextLine();
-				size = data.split(" ").length;
-		    }
-		    scan.close();
-    	} catch (FileNotFoundException e) {
-      		System.out.println("An error occurred.");
-      		e.printStackTrace();
-    	}
-    	int[][] matrix = new int[size][size];
-    	return matrix;
-	}
-	public static void loadMatrix(String matrixFile, int[][] matrix){
-		try {
-      		File file = new File(matrixFile);
-		    Scanner scan = new Scanner(file);
-		    int row = 0;
-		    while (scan.hasNextLine()) {
-			    String[] data = scan.nextLine().split(" ");
-			    int col = 0;
-				for (String element: data){
-					matrix[row][col] = Integer.parseInt(element);					
-					col++;
-				}
-				row++;
+					size = data.split(" ").length;
 		    }
 		    scan.close();
     	} catch (FileNotFoundException e) {
@@ -39,17 +21,44 @@ public class WorkflowParser {
       		e.printStackTrace();
     	}
 
+    	int[][] matrix = new int[size][size];
+
+    	return matrix;
 	}
-	public static void displayMatrix(int[][] matrix){
+
+	public static void loadMatrix(String matrixFile, int[][] matrix) {
+		try {
+      	File file = new File(matrixFile);
+		    Scanner scan = new Scanner(file);
+		    int row = 0;
+		    while (scan.hasNextLine()) {
+			    String[] data = scan.nextLine().split(" ");
+			    int col = 0;
+					for (String element: data){
+						matrix[row][col] = Integer.parseInt(element);
+						col += 1;
+					}
+					row += 1;
+		    }
+		    scan.close();
+		} catch (FileNotFoundException e) {
+				System.out.println("An error occurred.");
+				e.printStackTrace();
+		}
+
+	}
+
+	public static void displayMatrix(int[][] matrix) {
 		for (int i = 0; i < matrix.length; i++){
 			for (int j = 0; j < matrix[i].length; j++){
-				System.out.print(matrix[i][j] + "\t");			
+				System.out.print(matrix[i][j] + "\t");
 			}
 			System.out.println();
 		}
-		
+
 	}
-	public static Map<String, Map<String, String>> loadPWorkflows(String pSpecFile){
+
+	public static Map<String, Map<String, String>> loadPWorkflows(String pSpecFile) {
 		Map<String, Map<String, String>> pwfs = new HashMap<String, Map<String, String>>();
 		try {
       		File file = new File(pSpecFile);
@@ -58,7 +67,7 @@ public class WorkflowParser {
 			    String[] workflow = scan.nextLine().split(" = ");
 			    if (workflow.length == 2){
 			    	String workflowName = workflow[0];
-			    	String[] workflowPorts = workflow[1].split("]");	
+			    	String[] workflowPorts = workflow[1].split("]");
 			    	if (workflowPorts.length == 2){
 			    		String inputPorts = workflowPorts[0].substring(workflowPorts[0].indexOf("[IP: ") + 4, workflowPorts[0].length());
 			    		String outputPorts = workflowPorts[1].substring(workflowPorts[1].indexOf("[OP: ") + 4, workflowPorts[1].length());
@@ -75,7 +84,8 @@ public class WorkflowParser {
     	}
     	return pwfs;
 	}
-	public static void displayAllPWorkflows(Map<String, Map<String, String>> pwfs){
+
+	public static void displayAllPWorkflows(Map<String, Map<String, String>> pwfs) {
 		 for (Map.Entry<String, Map<String, String>> pwf : pwfs.entrySet()) {
     	 	String workflowName = pwf.getKey();
     	 	for (Map.Entry<String, String> port : pwf.getValue().entrySet()) {
@@ -85,7 +95,8 @@ public class WorkflowParser {
     	 	}
 		 }
 	}
-	public static void displayPWorkflow(Map<String, Map<String, String>> pwfs, String pWorkflowName){
+
+	public static void displayPWorkflow(Map<String, Map<String, String>> pwfs, String pWorkflowName) {
 		 boolean exist = false;
 		 for (Map.Entry<String, Map<String, String>> pwf : pwfs.entrySet()) {
     	 	String workflowName = pwf.getKey();
@@ -101,6 +112,7 @@ public class WorkflowParser {
 		 if (!exist)
 		 	System.out.println("primtive workflow not found ...");
 	}
+
 	public static void main(String[] args) {
 		String matrixFile = "../data/wa/matrix.txt";
 		String pSpecFile = "../data/primitive.spec";
@@ -110,10 +122,11 @@ public class WorkflowParser {
 		Map<String, Map<String, String>> pwfs = loadPWorkflows(pSpecFile);
 		// uncomment the below line to display all pworkflows
 		// displayAllPWorkflows(pwfs);
-		
+
 		String pWorkflowName = "Not";
 		displayPWorkflow(pwfs, pWorkflowName);
 
-    
+
    	}
+
 }
