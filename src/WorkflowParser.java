@@ -84,8 +84,30 @@ public class WorkflowParser {
     	}
     	return pwfs;
 	}
+	public static void specParser(String specFile){
+		try {
+      		File file = new File(specFile);
+		    Scanner scan = new Scanner(file);
+		    while (scan.hasNextLine()) {
+			    String[] workflow = scan.nextLine().split(" = ");
+				if (workflow.length == 4){
+			    	String workflowName = workflow[0];
+			    	System.out.println(workflowName);
+			    	String workflowInput = workflow[2].substring(0, workflow[2].indexOf("]"));
+			    	System.out.println(workflowInput);
+			    	String workflowConstituents = workflow[3].substring(0, workflow[3].length() - 1);
+			    	System.out.println(workflowConstituents);
 
-	public static void displayAllPWorkflows(Map<String, Map<String, String>> pwfs) {
+			    }
+		    }
+		    scan.close();
+    	} catch (FileNotFoundException e) {
+      		System.out.println("An error occurred.");
+      		e.printStackTrace();
+    	}
+
+	}
+	public static void displayAllPWorkflows(Map<String, Map<String, String>> pwfs){
 		 for (Map.Entry<String, Map<String, String>> pwf : pwfs.entrySet()) {
     	 	String workflowName = pwf.getKey();
     	 	for (Map.Entry<String, String> port : pwf.getValue().entrySet()) {
@@ -115,6 +137,7 @@ public class WorkflowParser {
 
 	public static void main(String[] args) {
 		String matrixFile = "../data/wa/matrix.txt";
+		String specFile = "../data/wa/spec.txt";
 		String pSpecFile = "../data/primitive.spec";
 		int[][] matrix = buildMatrix(matrixFile);
 		loadMatrix(matrixFile, matrix);
@@ -125,7 +148,7 @@ public class WorkflowParser {
 
 		String pWorkflowName = "Not";
 		displayPWorkflow(pwfs, pWorkflowName);
-
+		specParser(specFile);
 
    	}
 
