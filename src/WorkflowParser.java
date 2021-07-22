@@ -12,27 +12,27 @@ public class WorkflowParser {
 		int size = 0;
 
 		try {
-				// Connect Scanner to File
-      	File file = new File(matrixFile);
-		    Scanner scan = new Scanner(file);
+			// Connect Scanner to File
+	  	File file = new File(matrixFile);
+	    Scanner scan = new Scanner(file);
 
-				// Loop through the whole file
-		    while (scan.hasNextLine()) {
-			    String data = scan.nextLine();
-					size = data.split(" ").length; // Find size of matrix
-		    }
+			// Loop through the whole file
+	    while (scan.hasNextLine()) {
+		    String data = scan.nextLine();
+				size = data.split(" ").length; // Find size of matrix
+	    }
 
-				// Close Scanner
-		    scan.close();
-    	} catch (FileNotFoundException e) { // Catch a FileNotFoundException
-      		System.out.println("An error occurred.");
-      		e.printStackTrace();
-    	}
+			// Close Scanner
+	    scan.close();
+    } catch (FileNotFoundException e) { // Catch a FileNotFoundException
+			System.out.println("An error occurred.");
+			e.printStackTrace();
+    }
 
-			// Create a matrix based off of the size we found.
-    	int[][] matrix = new int[size][size];
+		// Create a matrix based off of the size we found.
+		int[][] matrix = new int[size][size];
 
-    	return matrix;
+		return matrix;
 	}
 
 	/** Get the information from a matrix file and insert
@@ -40,32 +40,31 @@ public class WorkflowParser {
 		*/
 	public static void loadMatrix(String matrixFile, int[][] matrix) {
 		try {
-				// Connect Scanner to File
-      	File file = new File(matrixFile);
-		    Scanner scan = new Scanner(file);
+			// Connect Scanner to File
+	  	File file = new File(matrixFile);
+	    Scanner scan = new Scanner(file);
 
-		    int row = 0;
-				int col = 0;
-		    while (scan.hasNextLine()) { // Loop through whole matrix file
-					// Get the row in a String array
-			    String[] data = scan.nextLine().split(" ");
+	    int row = 0;
+			int col = 0;
+	    while (scan.hasNextLine()) { // Loop through whole matrix file
+				// Get the row in a String array
+		    String[] data = scan.nextLine().split(" ");
 
-					for (String element: data) { // For `element` in data
-						matrix[row][col] = Integer.parseInt(element); // Place the 1 or 0
-						col += 1; // Increment the column so we move to the next one
-					}
+				for (String element: data) { // For `element` in data
+					matrix[row][col] = Integer.parseInt(element); // Place the 1 or 0
+					col += 1; // Increment the column so we move to the next one
+				}
 
-					col = 0; // Reset the column to 0
-					row += 1; // Increment row so we move to the next one
-		    }
+				col = 0; // Reset the column to 0
+				row += 1; // Increment row so we move to the next one
+	    }
 
-				// Close the Scanner
-		    scan.close();
+			// Close the Scanner
+	    scan.close();
 		} catch (FileNotFoundException e) { // Catch a FileNotFoundException
-				System.out.println("An error occurred.");
-				e.printStackTrace();
+			System.out.println("An error occurred.");
+			e.printStackTrace();
 		}
-
 	}
 
 	/** Display a 2D matrix.
@@ -77,15 +76,14 @@ public class WorkflowParser {
 			}
 			System.out.println(); // Skip a line
 		}
-
 	}
 
 	public static Map<String, Map<String, String>> loadPWorkflows(String pSpecFile) {
 		Map<String, Map<String, String>> pwfs = new HashMap<String, Map<String, String>>();
 		try {
-      		File file = new File(pSpecFile);
-		    Scanner scan = new Scanner(file);
-		    while (scan.hasNextLine()) {
+    	File file = new File(pSpecFile);
+		  Scanner scan = new Scanner(file);
+		  	while (scan.hasNextLine()) {
 			    String[] workflow = scan.nextLine().split(" = ");
 			    if (workflow.length == 2){
 			    	String workflowName = workflow[0];
