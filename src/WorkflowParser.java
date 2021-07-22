@@ -73,9 +73,9 @@ public class WorkflowParser {
 	public static void displayMatrix(int[][] matrix) {
 		for (int i = 0; i < matrix.length; i += 1) { // Loop through rows
 			for (int j = 0; j < matrix[i].length; j += 1) { // Loop through columns
-				System.out.print(matrix[i][j] + " ");
+				System.out.print(matrix[i][j] + " "); // Display an element
 			}
-			System.out.println();
+			System.out.println(); // Skip a line
 		}
 
 	}
