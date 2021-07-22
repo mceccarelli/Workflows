@@ -5,53 +5,75 @@ import model.*;
 
 public class WorkflowParser {
 
+	/** Take an input file, which contains a matrix, and
+		*	return an empty 2D int matrix based off the length calculated.
+		*/
 	public static int[][] buildMatrix(String matrixFile) {
 		int size = 0;
 
 		try {
+				// Connect Scanner to File
       	File file = new File(matrixFile);
 		    Scanner scan = new Scanner(file);
+
+				// Loop through the whole file
 		    while (scan.hasNextLine()) {
 			    String data = scan.nextLine();
-					size = data.split(" ").length;
+					size = data.split(" ").length; // Find size of matrix
 		    }
+
+				// Close Scanner
 		    scan.close();
-    	} catch (FileNotFoundException e) {
+    	} catch (FileNotFoundException e) { // Catch a FileNotFoundException
       		System.out.println("An error occurred.");
       		e.printStackTrace();
     	}
 
+			// Create a matrix based off of the size we found.
     	int[][] matrix = new int[size][size];
 
     	return matrix;
 	}
 
+	/** Get the information from a matrix file and insert
+		* it into a 2D int array, which the user passes.
+		*/
 	public static void loadMatrix(String matrixFile, int[][] matrix) {
 		try {
+				// Connect Scanner to File
       	File file = new File(matrixFile);
 		    Scanner scan = new Scanner(file);
+
 		    int row = 0;
-		    while (scan.hasNextLine()) {
+				int col = 0;
+		    while (scan.hasNextLine()) { // Loop through whole matrix file
+					// Get the row in a String array
 			    String[] data = scan.nextLine().split(" ");
-			    int col = 0;
-					for (String element: data){
-						matrix[row][col] = Integer.parseInt(element);
-						col += 1;
+
+					for (String element: data) { // For `element` in data
+						matrix[row][col] = Integer.parseInt(element); // Place the 1 or 0
+						col += 1; // Increment the column so we move to the next one
 					}
-					row += 1;
+
+					col = 0; // Reset the column to 0
+					row += 1; // Increment row so we move to the next one
 		    }
+
+				// Close the Scanner
 		    scan.close();
-		} catch (FileNotFoundException e) {
+		} catch (FileNotFoundException e) { // Catch a FileNotFoundException
 				System.out.println("An error occurred.");
 				e.printStackTrace();
 		}
 
 	}
 
+	/** Display a 2D matrix.
+		*/
 	public static void displayMatrix(int[][] matrix) {
-		for (int i = 0; i < matrix.length; i++){
-			for (int j = 0; j < matrix[i].length; j++){
-				System.out.print(matrix[i][j] + "\t");
+		for (int i = 0; i < matrix.length; i += 1) { // Loop through rows
+			for (int j = 0; j < matrix[i].length; j += 1) { // Loop through columns
+				System.out.print(matrix[i][j] + " ");
 			}
 			System.out.println();
 		}
