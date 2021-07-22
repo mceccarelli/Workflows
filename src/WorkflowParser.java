@@ -78,30 +78,53 @@ public class WorkflowParser {
 		}
 	}
 
+	/** Use an input file to get the information about the constituent
+		* workflows in a specific workflow.  This method works for getting
+		* details about a primitive workflow(s).
+		*/
 	public static Map<String, Map<String, String>> loadPWorkflows(String pSpecFile) {
+		// Create an instance of HashMap
 		Map<String, Map<String, String>> pwfs = new HashMap<String, Map<String, String>>();
+
 		try {
+			// Connect the Scanner to a File
     	File file = new File(pSpecFile);
 		  Scanner scan = new Scanner(file);
-		  	while (scan.hasNextLine()) {
-			    String[] workflow = scan.nextLine().split(" = ");
-			    if (workflow.length == 2){
-			    	String workflowName = workflow[0];
-			    	String[] workflowPorts = workflow[1].split("]");
-			    	if (workflowPorts.length == 2){
-			    		String inputPorts = workflowPorts[0].substring(workflowPorts[0].indexOf("[IP: ") + 4, workflowPorts[0].length());
-			    		String outputPorts = workflowPorts[1].substring(workflowPorts[1].indexOf("[OP: ") + 4, workflowPorts[1].length());
-			    		Map<String, String> ports = new HashMap<String, String>();
-			    		ports.put(inputPorts, outputPorts);
-			    		pwfs.put(workflowName, ports);
-			    	}
-			    }
+
+	  	while (scan.hasNextLine()) {
+				// Break up the file into three parts
+		  	String[] workflow = scan.nextLine().split(" = ");
+
+		    if (workflow.length == 2) { // It's primitive
+					// Get the name and ports from the clever split of the array
+		   		String workflowName = workflow[0];
+		    	String[] workflowPorts = workflow[1].split("]");
+
+					// If the port's length is 2, we have a primitive workflow
+					// dont know if we need this??
+		    	if (workflowPorts.length == 2) {
+						// Get the type of input and output ports
+		    		String inputPorts = workflowPorts[0].substring(workflowPorts[0].indexOf("[IP: ") + 4, workflowPorts[0].length());
+		    		String outputPorts = workflowPorts[1].substring(workflowPorts[1].indexOf("[OP: ") + 4, workflowPorts[1].length());
+
+						// Create a new HashMap of the ports
+		    		Map<String, String> ports = new HashMap<String, String>();
+
+						// Put the ports into the ports HashMap
+		    		ports.put(inputPorts, outputPorts);
+						// Put the ports Map into the workflow HashMap
+		    		pwfs.put(workflowName, ports);
+		    	}
 		    }
-		    scan.close();
-    	} catch (FileNotFoundException e) {
-      		System.out.println("An error occurred.");
-      		e.printStackTrace();
-    	}
+	   	}
+
+			// Close the Scanner
+	  	scan.close();
+		} catch (FileNotFoundException e) { // Catch a FileNotFoundException
+			System.out.println("An error occurred.");
+			e.printStackTrace();
+		}
+
     	return pwfs;
 	}
 
