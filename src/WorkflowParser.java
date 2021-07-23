@@ -67,17 +67,6 @@ public class WorkflowParser {
 		}
 	}
 
-	/** Display a 2D matrix.
-		*/
-	public static void displayMatrix(int[][] matrix) {
-		for (int i = 0; i < matrix.length; i += 1) { // Loop through rows
-			for (int j = 0; j < matrix[i].length; j += 1) { // Loop through columns
-				System.out.print(matrix[i][j] + " "); // Display an element
-			}
-			System.out.println(); // Skip a line
-		}
-	}
-
 	/** Use an input file to get the information about all the primitive
 		* workflows that may be used inside a composite workflow.
 		*/
@@ -123,53 +112,68 @@ public class WorkflowParser {
 
 	public static void specParser(String specFile) {
 		try {
-      	File file = new File(specFile);
-		    Scanner scan = new Scanner(file);
-		    while (scan.hasNextLine()) {
-			    String[] workflow = scan.nextLine().split(" = ");
-				if (workflow.length == 4){
-		    	String workflowName = workflow[0];
-		    	System.out.println(workflowName);
-		    	String workflowInput = workflow[2].substring(0, workflow[2].indexOf("]"));
-		    	System.out.println(workflowInput);
-		    	String workflowConstituents = workflow[3].substring(0, workflow[3].length() - 1);
-		    	System.out.println(workflowConstituents);
-			    }
+			// Connect the Scanner to a File
+	  	File file = new File(specFile);
+	    Scanner scan = new Scanner(file);
+
+	    while (scan.hasNextLine()) {
+		  	String[] workflow = scan.nextLine().split(" = ");
+				if (workflow.length == 4) { // It's a composite workflow
+	    		String workflowName = workflow[0];
+	    		System.out.println(workflowName);
+	    		String workflowInput = workflow[2].substring(0, workflow[2].indexOf("]"));
+	    		System.out.println(workflowInput);
+	    		String workflowConstituents = workflow[3].substring(0, workflow[3].length() - 1);
+	    		System.out.println(workflowConstituents);
 		    }
-		    scan.close();
-    	} catch (FileNotFoundException e) {
-	  		System.out.println("An error occurred.");
-	  		e.printStackTrace();
-    	}
+	    }
 
+			// Close the Scanner
+	    scan.close();
+		} catch (FileNotFoundException e) { // Catch a FileNotFoundException
+			System.out.println("An error occurred.");
+			e.printStackTrace();
+		}
 	}
 
+	/** Display a 2D matrix. */
+	public static void displayMatrix(int[][] matrix) {
+		for (int i = 0; i < matrix.length; i += 1) { // Loop through rows
+			for (int j = 0; j < matrix[i].length; j += 1) { // Loop through columns
+				System.out.print(matrix[i][j] + " "); // Display an element
+			}
+			System.out.println(); // Skip a line
+		}
+	}
+
+	/** Display the details of all the primitive workflows. */
 	public static void displayAllPWorkflows(Map<String, Map<String, String>> pwfs) {
-		 for (Map.Entry<String, Map<String, String>> pwf : pwfs.entrySet()) {
-    	 	String workflowName = pwf.getKey();
-    	 	for (Map.Entry<String, String> port : pwf.getValue().entrySet()) {
-    	 		String inputPorts = port.getKey();
-    	 		String outputPorts = port.getValue();
-    	 		System.out.println(workflowName + "\t" + inputPorts + "\t" + outputPorts);
-    	 	}
-		 }
+		// Loop through all the entries
+		for (Map.Entry<String, Map<String, String>> pwf : pwfs.entrySet()) {
+    	String workflowName = pwf.getKey();
+			// Loop through all the entries of the entries
+    	for (Map.Entry<String, String> port : pwf.getValue().entrySet()) {
+    		System.out.println(workflowName + ": " + port.getKey() + " -> " + port.getValue());
+    	}
+		}
 	}
 
+	/** Display the details of a specific primitive workflow. */
 	public static void displayPWorkflow(Map<String, Map<String, String>> pwfs, String pWorkflowName) {
-		 boolean exist = false;
-		 for (Map.Entry<String, Map<String, String>> pwf : pwfs.entrySet()) {
-    	 	String workflowName = pwf.getKey();
-    	 	for (Map.Entry<String, String> port : pwf.getValue().entrySet()) {
-    	 		String inputPorts = port.getKey();
-    	 		String outputPorts = port.getValue();
-    	 		if (pWorkflowName.equalsIgnoreCase(workflowName)){
-    	 			System.out.println(workflowName + "\t" + inputPorts + "\t" + outputPorts);
-    	 			exist = true;
-    	 		}
+		// Loop through all the entries
+		for (Map.Entry<String, Map<String, String>> pwf : pwfs.entrySet()) {
+    	String workflowName = pwf.getKey();
+
+			// Loop through all the entries of the entries
+    	for (Map.Entry<String, String> port : pwf.getValue().entrySet()) {
+				// If it exists, print it and return
+    		if (pWorkflowName.equalsIgnoreCase(workflowName)) {
+    	 		System.out.println(workflowName + ": " + port.getKey() + " -> " + port.getValue());
+    	 		return;
     	 	}
-		 }
-		 if (!exist)
-		 	System.out.println("primtive workflow not found ...");
+    	}
+		}
+		System.out.println("Workflow not found!"); // Error message if not yet returned
 	}
 
 	public static void main(String[] args) {
