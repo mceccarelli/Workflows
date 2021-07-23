@@ -180,6 +180,7 @@ public class WorkflowParser {
 		System.out.println("Workflow not found!"); // Error message if not yet returned
 	}
 
+	/** The main method. */
 	public static void main(String[] args) {
 		String matrixFile = "../data/wa/matrix.txt";
 		String specFile = "../data/wa/spec.txt";
@@ -188,15 +189,13 @@ public class WorkflowParser {
 		int[][] matrix = buildMatrix(matrixFile);
 		loadMatrix(matrixFile, matrix);
 		displayMatrix(matrix);
-
 		Map<String, Map<String, String>> pwfs = loadPWorkflows(pSpecFile);
-		// uncomment the below line to display all pworkflows
-		// displayAllPWorkflows(pwfs);
+
+		displayAllPWorkflows(pwfs); // uncomment to display all pworkflows
 
 		String pWorkflowName = "Not";
 		displayPWorkflow(pwfs, pWorkflowName);
 		specParser(specFile);
-
-   	}
+  }
 
 }
