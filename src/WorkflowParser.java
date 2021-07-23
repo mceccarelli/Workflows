@@ -110,14 +110,18 @@ public class WorkflowParser {
     return pwfs;
 	}
 
+	/** Get the data from the specification file */
 	public static void specParser(String specFile) {
 		try {
 			// Connect the Scanner to a File
 	  	File file = new File(specFile);
 	    Scanner scan = new Scanner(file);
 
+			// Loop through the whole file
 	    while (scan.hasNextLine()) {
+				// Split the line into four parts
 		  	String[] workflow = scan.nextLine().split(" = ");
+
 				if (workflow.length == 4) { // It's a composite workflow
 	    		String workflowName = workflow[0];
 	    		System.out.println(workflowName);
@@ -180,9 +184,11 @@ public class WorkflowParser {
 		String matrixFile = "../data/wa/matrix.txt";
 		String specFile = "../data/wa/spec.txt";
 		String pSpecFile = "../data/primitive.spec";
+
 		int[][] matrix = buildMatrix(matrixFile);
 		loadMatrix(matrixFile, matrix);
 		displayMatrix(matrix);
+
 		Map<String, Map<String, String>> pwfs = loadPWorkflows(pSpecFile);
 		// uncomment the below line to display all pworkflows
 		// displayAllPWorkflows(pwfs);
