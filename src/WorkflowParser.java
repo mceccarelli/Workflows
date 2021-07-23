@@ -78,9 +78,8 @@ public class WorkflowParser {
 		}
 	}
 
-	/** Use an input file to get the information about the constituent
-		* workflows in a specific workflow.  This method works for getting
-		* details about a primitive workflow(s).
+	/** Use an input file to get the information about all the primitive
+		* workflows that may be used inside a composite workflow.
 		*/
 	public static Map<String, Map<String, String>> loadPWorkflows(String pSpecFile) {
 		// Create an instance of HashMap
@@ -95,28 +94,22 @@ public class WorkflowParser {
 				// Break up the file into three parts
 		  	String[] workflow = scan.nextLine().split(" = ");
 
-		    if (workflow.length == 2) { // It's primitive
-					// Get the name and ports from the clever split of the array
-		   		String workflowName = workflow[0];
-		    	String[] workflowPorts = workflow[1].split("]");
+				// Get the name and ports from the clever split of the array
+	   		String workflowName = workflow[0];
+	    	String[] workflowPorts = workflow[1].split("]");
 
-					// If the port's length is 2, we have a primitive workflow
-					// dont know if we need this??
-		    	if (workflowPorts.length == 2) {
-						// Get the type of input and output ports
-		    		String inputPorts = workflowPorts[0].substring(workflowPorts[0].indexOf("[IP: ") + 4, workflowPorts[0].length());
-		    		String outputPorts = workflowPorts[1].substring(workflowPorts[1].indexOf("[OP: ") + 4, workflowPorts[1].length());
+				// Get the type of input and output ports
+    		String inputPorts = workflowPorts[0].substring(workflowPorts[0].indexOf("[IP: ") + 4, workflowPorts[0].length());
+    		String outputPorts = workflowPorts[1].substring(workflowPorts[1].indexOf("[OP: ") + 4, workflowPorts[1].length());
 
-						// Create a new HashMap of the ports
-		    		Map<String, String> ports = new HashMap<String, String>();
+				// Create a new HashMap of the ports
+    		Map<String, String> ports = new HashMap<String, String>();
 
-						// Put the ports into the ports HashMap
-		    		ports.put(inputPorts, outputPorts);
-						// Put the ports Map into the workflow HashMap
-		    		pwfs.put(workflowName, ports);
-		    	}
-		    }
-	   	}
+				// Put the ports into the ports HashMap
+    		ports.put(inputPorts, outputPorts);
+				// Put the ports Map into the workflow HashMap
+    		pwfs.put(workflowName, ports);
+			}
 
 			// Close the Scanner
 	  	scan.close();
@@ -125,7 +118,7 @@ public class WorkflowParser {
 			e.printStackTrace();
 		}
 
-    	return pwfs;
+    return pwfs;
 	}
 
 	public static void specParser(String specFile) {

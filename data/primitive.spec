@@ -5,4 +5,3 @@ Sqrt = [IP: double][OP: double]
 Mean = [IP: int,int,int][OP: float]
 Square = [IP: int][OP: int]
 Divide = [IP: int,int][OP: float]
-
