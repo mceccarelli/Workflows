@@ -111,7 +111,9 @@ public class WorkflowParser {
 	}
 
 	/** Get the data from the specification file */
-	public static void specParser(String specFile) {
+	public static String[] specParser(String specFile) {
+		String[] array = new String[3];
+
 		try {
 			// Connect the Scanner to a File
 	  	File file = new File(specFile);
@@ -124,11 +126,14 @@ public class WorkflowParser {
 
 				if (workflow.length == 4) { // It's a composite workflow
 	    		String workflowName = workflow[0];
-	    		System.out.println(workflowName);
+					array[0] = workflowName;
+	    		//System.out.println(workflowName);
 	    		String workflowInput = workflow[2].substring(0, workflow[2].indexOf("]"));
-	    		System.out.println(workflowInput);
+					array[1] = workflowInput;
+	    		//System.out.println(workflowInput);
 	    		String workflowConstituents = workflow[3].substring(0, workflow[3].length() - 1);
-	    		System.out.println(workflowConstituents);
+					array[2] = workflowConstituents;
+	    		//System.out.println(workflowConstituents);
 		    }
 	    }
 
@@ -138,6 +143,8 @@ public class WorkflowParser {
 			System.out.println("An error occurred.");
 			e.printStackTrace();
 		}
+
+		return array;
 	}
 
 	/** Display a 2D matrix. */
@@ -150,7 +157,7 @@ public class WorkflowParser {
 		}
 	}
 
-	/** Display the details of all the primitive workflows. */
+	/** Display the details of all the primitive workflows in the input map. */
 	public static void displayAllPWorkflows(Map<String, Map<String, String>> pwfs) {
 		// Loop through all the entries
 		for (Map.Entry<String, Map<String, String>> pwf : pwfs.entrySet()) {
@@ -188,14 +195,12 @@ public class WorkflowParser {
 
 		int[][] matrix = buildMatrix(matrixFile);
 		loadMatrix(matrixFile, matrix);
-		displayMatrix(matrix);
+		String[] specs = specParser(specFile);
 		Map<String, Map<String, String>> pwfs = loadPWorkflows(pSpecFile);
 
-		displayAllPWorkflows(pwfs); // uncomment to display all pworkflows
-
-		String pWorkflowName = "Not";
-		displayPWorkflow(pwfs, pWorkflowName);
-		specParser(specFile);
+		for (int i = 0; i < specs.length; i ++ ) {
+			System.out.println(specs[i]);
+		}
   }
 
 }
