@@ -32,6 +32,8 @@ public class WorkflowParser {
 		// Create a matrix based off of the size we found.
 		int[][] matrix = new int[size][size];
 
+		loadMatrix(matrixFile, matrix);
+
 		return matrix;
 	}
 
@@ -189,18 +191,37 @@ public class WorkflowParser {
 
 	/** The main method. */
 	public static void main(String[] args) {
+		// Input files
 		String matrixFile = "../data/wa/matrix.txt";
 		String specFile = "../data/wa/spec.txt";
 		String pSpecFile = "../data/primitive.spec";
 
+		// Storage for all our data
 		int[][] matrix = buildMatrix(matrixFile);
-		loadMatrix(matrixFile, matrix);
 		String[] specs = specParser(specFile);
-		Map<String, Map<String, String>> pwfs = loadPWorkflows(pSpecFile);
+		String[] pwfs = specs[2].split(",");
 
-		for (int i = 0; i < specs.length; i ++ ) {
-			System.out.println(specs[i]);
+		String id = specs[0];
+		ArrayList<Port> in = new ArrayList<Port>();
+	  ArrayList<Port> out = new ArrayList<Port>();
+	  Workflow[] constituents;
+	  DataProduct[] dataProducts;
+	  DataChannel[] dcin;
+	  DataChannel[] dcout;
+	  DataChannel[] dcmid;
+	  DataChannel[] dcidp;
+
+		if (specs[1].contains(" ")) {
+			dcin = new DataChannel[0];
+		} else {
+			dataProducts = new DataProduct[0];
+			dcidp = new DataChannel[0];
 		}
+
+		// if we get all the input ports, we can line up where each workflow exists
+		// we can get the output ports too knowing that information.  it's every other.
+		// then, we have the Port ArrayLists filled completely, so we can make all our data channels
+		// and our constituent workflows
   }
 
 }
