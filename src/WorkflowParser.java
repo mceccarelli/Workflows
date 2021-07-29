@@ -218,26 +218,25 @@ public class WorkflowParser {
 			dps = false;
 		}
 
-		String[] spec = specs[1].split(" ");
-		int amount = spec.length;
+		String[] input = specs[1].split(" ");
+		int amount = input.length;
 
 		// Get input Ports
 		for (int i = 0; i < amount; i += 1) {
 			if (dps) {
-				DataProduct dp = new DataProduct(i, spec[i].split(":")[1], spec[i].split(":")[0]);
+				DataProduct dp = new DataProduct(i, input[i].split(":")[1], input[i].split(":")[0]);
 				dataProducts.add(dp);
 				in.add(dp);
 			} else {
-				Port p = new Port('i', i, spec[i]);
+				Port p = new Port('i', i, input[i]);
 				in.add(p);
 			}
 		}
 		// Create input DataChannels
 		for (int i = 0; i < amount; i += 1) {
-			Port p = new Port('i', amount + i, spec[i].split(":")[0]);
+			Port p = new Port('i', amount + i, input[i].split(":")[0]);
 			in.add(p);
 			DataChannel dc = new DataChannel(in.get(i), p);
-
 			if (dps) {
 				dcidp.add(dc);
 			} else {
