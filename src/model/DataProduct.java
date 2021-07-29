@@ -1,13 +1,13 @@
 // This is the DataProduct class.
 package model;
 
-public class DataProduct<T> extends Port {
+public class DataProduct extends Port {
   // The parts of a DataProduct
-  private T value;
+  private String value;
 
   // Constructor for the class
-  public DataProduct(char id, int number, T value, String type) {
-    super(id, number, type);
+  public DataProduct(int number, String value, String type) {
+    super('i', number, type);
     this.value = value;
   }
 
@@ -17,7 +17,7 @@ public class DataProduct<T> extends Port {
   }
 
   // Getter methods for the variables
-  public T getValue() {
+  public String getValue() {
     return value;
   }
 }

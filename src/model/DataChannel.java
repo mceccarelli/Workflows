@@ -1,5 +1,6 @@
 // This is the DataChannel class.
 package model;
+
 public class DataChannel {
   // The parts of a DataChannel
   private Port in;
@@ -19,9 +20,9 @@ public class DataChannel {
   // toString overriding
   public String toString() {
     if (dp == null) {
-      return in.toString() + " | " + out.toString();
+      return in.toString() + " -- " + out.toString();
     } else {
-      return dp.toString() + " | " + out.toString();
+      return dp.toString() + " -- " + out.toString();
     }
   }
 

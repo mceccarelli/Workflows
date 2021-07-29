@@ -204,24 +204,63 @@ public class WorkflowParser {
 		String id = specs[0];
 		ArrayList<Port> in = new ArrayList<Port>();
 	  ArrayList<Port> out = new ArrayList<Port>();
-	  Workflow[] constituents;
-	  DataProduct[] dataProducts;
-	  DataChannel[] dcin;
-	  DataChannel[] dcout;
-	  DataChannel[] dcmid;
-	  DataChannel[] dcidp;
+		ArrayList<Workflow> constituents = new ArrayList<Workflow>();
+		ArrayList<DataProduct> dataProducts = new ArrayList<DataProduct>();
+		ArrayList<DataChannel> dcin = new ArrayList<DataChannel>();
+		ArrayList<DataChannel> dcout = new ArrayList<DataChannel>();
+		ArrayList<DataChannel> dcmid = new ArrayList<DataChannel>();
+		ArrayList<DataChannel> dcidp = new ArrayList<DataChannel>();
 
-		if (specs[1].contains(" ")) {
-			dcin = new DataChannel[0];
+		boolean dps;
+		if (specs[1].contains(":")) {
+			dps = true;
 		} else {
-			dataProducts = new DataProduct[0];
-			dcidp = new DataChannel[0];
+			dps = false;
 		}
+
+		String[] spec = specs[1].split(" ");
+		int amount = spec.length;
+
+		// Get input Ports
+		for (int i = 0; i < amount; i += 1) {
+			if (dps) {
+				DataProduct dp = new DataProduct(i, spec[i].split(":")[1], spec[i].split(":")[0]);
+				dataProducts.add(dp);
+				in.add(dp);
+			} else {
+				Port p = new Port('i', i, spec[i]);
+				in.add(p);
+			}
+		}
+		// Create input DataChannels
+		for (int i = 0; i < amount; i += 1) {
+			Port p = new Port('i', amount + i, spec[i].split(":")[0]);
+			in.add(p);
+			DataChannel dc = new DataChannel(in.get(i), p);
+
+			if (dps) {
+				dcidp.add(dc);
+			} else {
+				dcin.add(dc);
+			}
+		}
+
+		System.out.println(dcin);
+		System.out.println("\n");
+		System.out.println(dcidp);
+		System.out.println("\n");
+		System.out.println(dataProducts);
+		System.out.println("\n");
+		System.out.println(in);
+
+
+
+
 
 		// if we get all the input ports, we can line up where each workflow exists
 		// we can get the output ports too knowing that information.  it's every other.
 		// then, we have the Port ArrayLists filled completely, so we can make all our data channels
-		// and our constituent workflows
+		// and our constituent workflows.  Input ports need to be sorted.
   }
 
 }

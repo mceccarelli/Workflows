@@ -16,7 +16,7 @@ public class Port {
 
   // toString overriding
   public String toString() {
-    return id + number + ": " + type;
+    return getID() + ": " + getType();
   }
 
   // Getter methods for the class
