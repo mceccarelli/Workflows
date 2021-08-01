@@ -225,6 +225,26 @@ public class WorkflowParser {
 		return "Hi";
 	}
 
+	public static Workflow makeWorkflow(String id, ArrayList<Port> in, ArrayList<Port> out, ArrayList<Workflow> constituents, ArrayList<DataProduct> dataProducts, ArrayList<DataChannel> dcin, ArrayList<DataChannel> dcout, ArrayList<DataChannel> dcmid, ArrayList<DataChannel> dcidp) {
+		Workflow[] workflows = new Workflow[constituents.size()];
+		DataProduct[] dps = new DataProduct[dataProducts.size()];
+		DataChannel[] inChannel = new DataChannel[dcin.size()];
+		DataChannel[] outChannel = new DataChannel[dcout.size()];
+		DataChannel[] midChannel = new DataChannel[dcmid.size()];
+		DataChannel[] dpsChannel = new DataChannel[dcidp.size()];
+
+		workflows = constituents.toArray(workflows);
+		dps = dataProducts.toArray(dps);
+		inChannel = dcin.toArray(inChannel);
+		outChannel = dcout.toArray(outChannel);
+		midChannel = dcmid.toArray(midChannel);
+		dpsChannel = dcidp.toArray(dpsChannel);
+
+		Workflow workflow = new Workflow(id, in, out, workflows, dps, inChannel, outChannel, midChannel, dpsChannel);
+
+		return workflow;
+	}
+
 	/** The main method. */
 	public static void main(String[] args) {
 		// Input files
@@ -307,60 +327,9 @@ public class WorkflowParser {
 		out.add(output);
 		dcout.add(new DataChannel(last, output));
 
+		Workflow workflow = makeWorkflow(id, in, out, constituents, dataProducts, dcin, dcout, dcmid, dcidp);
 
-		System.out.println("IN");
-		for (int i = 0; i < in.size(); i += 1) {
-			System.out.println(in.get(i));
-		}
-		System.out.println("\n\n");
-
-		System.out.println("OUT");
-		for (int i = 0; i < out.size(); i += 1) {
-			System.out.println(out.get(i));
-		}
-		System.out.println("\n\n");
-
-		System.out.println("WORKFLOWS HERE");
-		for (int i = 0; i < constituents.size(); i += 1) {
-			System.out.println(constituents.get(i));
-		}
-		System.out.println("\n\n");
-
-		System.out.println("DPS");
-		for (int i = 0; i < dataProducts.size(); i += 1) {
-			System.out.println(dataProducts.get(i));
-		}
-		System.out.println("\n\n");
-
-		System.out.println("INC");
-		for (int i = 0; i < dcin.size(); i += 1) {
-			System.out.println(dcin.get(i));
-		}
-		System.out.println("\n\n");
-
-		System.out.println("MIDC");
-		for (int i = 0; i < dcmid.size(); i += 1) {
-			System.out.println(dcmid.get(i));
-		}
-		System.out.println("\n\n");
-
-		System.out.println("OUTC");
-		for (int i = 0; i < dcout.size(); i += 1) {
-			System.out.println(dcout.get(i));
-		}
-		System.out.println("\n\n");
-
-		System.out.println("IDPC");
-		for (int i = 0; i < dcidp.size(); i += 1) {
-			System.out.println(dcidp.get(i));
-		}
-		System.out.println("\n\n");
-
-
-		// if we get all the input ports, we can line up where each workflow exists
-		// we can get the output ports too knowing that information.  it's every other.
-		// then, we have the Port ArrayLists filled completely, so we can make all our data channels
-		// and our constituent workflows.  Input ports need to be sorted.
+		System.out.println(workflow.toString());
   }
 
 }

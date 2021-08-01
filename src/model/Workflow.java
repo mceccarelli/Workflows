@@ -87,7 +87,7 @@ public class Workflow {
     + "ID: " + id + "\n"
     + "Inputs: " + inputsArray + "\n"
     + "Outputs: " + outputsArray + "\n"
-    + "Constituents: " + constituents[0].getID() + "\n"
+    //+ "Constituents: " + constituents[0].getID() + "\n"
     + "Data Products: " + dataprod + "\n"
     + "Data Channels" + "\n"
     + "In: " + datain + "\n"

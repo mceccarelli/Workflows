@@ -1,1 +1,1 @@
-Test = [Input = int int int][Constituents = Mean,Sqrt]
+Test = [Input = int:7 int:4 int:2][Constituents = Mean,Sqrt]
