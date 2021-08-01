@@ -1,1 +1,1 @@
-spec.txt
+Test = [Input = int int int][Constituents = Mean,Sqrt]
