@@ -228,8 +228,8 @@ public class WorkflowParser {
 	/** The main method. */
 	public static void main(String[] args) {
 		// Input files
-		String matrixFile = "../data/wa/matrix.txt";
-		String specFile = "../data/wa/spec.txt";
+		String matrixFile = "../data/wd/matrix.txt";
+		String specFile = "../data/wd/spec.txt";
 		String pSpecFile = "../data/primitive.spec";
 
 		// Storage for all our data
@@ -285,7 +285,7 @@ public class WorkflowParser {
 
 		// The middle of the workflow
 		int counter = 0;
-		for (int i = amount + 1; i < matrix[0].length - 3; i += 2) {
+		for (int i = amount * 2; i < matrix[0].length - 3; i += 2) {
 			String outType = getOut(primitives, pwfs[counter]);
 			String inType = getIn(primitives, pwfs[counter + 1]);
 
@@ -296,12 +296,13 @@ public class WorkflowParser {
 			in.add(enter);
 			out.add(exit);
 			dcmid.add(dc);
+			counter += 1;
 		}
 
 		// The output of the workflow
-		outType = getOut(primitives, pwfs[pwfs.length - 1]);
-		Port last = new Port('o', matrix[0].length - 2, outType);
-		Port output = new Port('o', matrix[0].length - 1, outType);
+		String lastOut = getOut(primitives, pwfs[pwfs.length - 1]);
+		Port last = new Port('o', matrix[0].length - 2, lastOut);
+		Port output = new Port('o', matrix[0].length - 1, lastOut);
 		out.add(last);
 		out.add(output);
 		dcout.add(new DataChannel(last, output));
