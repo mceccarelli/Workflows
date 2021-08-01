@@ -1,1 +1,0 @@
-WD = [Input = int int int][Constituents = Mean,Sqrt]

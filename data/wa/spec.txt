@@ -1,1 +1,0 @@
-WA = [Input = bool:true][Constituents = Not,Increment]
