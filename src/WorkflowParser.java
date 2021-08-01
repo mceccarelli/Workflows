@@ -228,8 +228,8 @@ public class WorkflowParser {
 	/** The main method. */
 	public static void main(String[] args) {
 		// Input files
-		String matrixFile = "../data/wd/matrix.txt";
-		String specFile = "../data/wd/spec.txt";
+		String matrixFile = "../data/test/matrix.txt";
+		String specFile = "../data/test/spec.txt";
 		String pSpecFile = "../data/primitive.spec";
 
 		// Storage for all our data
