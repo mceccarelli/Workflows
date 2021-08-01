@@ -189,6 +189,42 @@ public class WorkflowParser {
 		System.out.println("Workflow not found!"); // Error message if not yet returned
 	}
 
+	public static String getIn(Map<String, Map<String, String>> pwfs, String pWorkflowName) {
+		// Loop through all the entries
+		for (Map.Entry<String, Map<String, String>> pwf : pwfs.entrySet()) {
+			String workflowName = pwf.getKey();
+
+			// Loop through all the entries of the entries
+			for (Map.Entry<String, String> port : pwf.getValue().entrySet()) {
+				// If it exists, print it and return
+				if (pWorkflowName.equalsIgnoreCase(workflowName)) {
+					//System.out.println(workflowName + ": " + port.getKey() + " -> " + port.getValue());
+					return port.getKey();
+				}
+			}
+		}
+		System.out.println("Workflow not found!"); // Error message if not yet returned
+		return "Hi";
+	}
+
+	public static String getOut(Map<String, Map<String, String>> pwfs, String pWorkflowName) {
+		// Loop through all the entries
+		for (Map.Entry<String, Map<String, String>> pwf : pwfs.entrySet()) {
+			String workflowName = pwf.getKey();
+
+			// Loop through all the entries of the entries
+			for (Map.Entry<String, String> port : pwf.getValue().entrySet()) {
+				// If it exists, print it and return
+				if (pWorkflowName.equalsIgnoreCase(workflowName)) {
+					//System.out.println(workflowName + ": " + port.getKey() + " -> " + port.getValue());
+					return port.getValue();
+				}
+			}
+		}
+		System.out.println("Workflow not found!"); // Error message if not yet returned
+		return "Hi";
+	}
+
 	/** The main method. */
 	public static void main(String[] args) {
 		// Input files
@@ -200,6 +236,9 @@ public class WorkflowParser {
 		int[][] matrix = buildMatrix(matrixFile);
 		String[] specs = specParser(specFile);
 		String[] pwfs = specs[2].split(",");
+
+		// Map for our primitive workflows
+		Map<String, Map<String, String>> primitives = loadPWorkflows(pSpecFile);
 
 		String id = specs[0];
 		ArrayList<Port> in = new ArrayList<Port>();
@@ -244,16 +283,77 @@ public class WorkflowParser {
 			}
 		}
 
-		System.out.println(dcin);
-		System.out.println("\n");
-		System.out.println(dcidp);
-		System.out.println("\n");
-		System.out.println(dataProducts);
-		System.out.println("\n");
-		System.out.println(in);
+		// The middle of the workflow
+		int counter = 0;
+		for (int i = amount + 1; i < matrix[0].length - 3; i += 2) {
+			String outType = getOut(primitives, pwfs[counter]);
+			String inType = getIn(primitives, pwfs[counter + 1]);
+
+			Port exit = new Port('o', i, outType);
+			Port enter = new Port('i', i + 1, inType);
+			DataChannel dc = new DataChannel(exit, enter);
+
+			in.add(enter);
+			out.add(exit);
+			dcmid.add(dc);
+		}
+
+		// The output of the workflow
+		outType = getOut(primitives, pwfs[pwfs.length - 1]);
+		Port last = new Port('o', matrix[0].length - 2, outType);
+		Port output = new Port('o', matrix[0].length - 1, outType);
+		out.add(last);
+		out.add(output);
+		dcout.add(new DataChannel(last, output));
 
 
+		System.out.println("IN");
+		for (int i = 0; i < in.size(); i += 1) {
+			System.out.println(in.get(i));
+		}
+		System.out.println("\n\n");
 
+		System.out.println("OUT");
+		for (int i = 0; i < out.size(); i += 1) {
+			System.out.println(out.get(i));
+		}
+		System.out.println("\n\n");
+
+		System.out.println("WORKFLOWS HERE");
+		for (int i = 0; i < constituents.size(); i += 1) {
+			System.out.println(constituents.get(i));
+		}
+		System.out.println("\n\n");
+
+		System.out.println("DPS");
+		for (int i = 0; i < dataProducts.size(); i += 1) {
+			System.out.println(dataProducts.get(i));
+		}
+		System.out.println("\n\n");
+
+		System.out.println("INC");
+		for (int i = 0; i < dcin.size(); i += 1) {
+			System.out.println(dcin.get(i));
+		}
+		System.out.println("\n\n");
+
+		System.out.println("MIDC");
+		for (int i = 0; i < dcmid.size(); i += 1) {
+			System.out.println(dcmid.get(i));
+		}
+		System.out.println("\n\n");
+
+		System.out.println("OUTC");
+		for (int i = 0; i < dcout.size(); i += 1) {
+			System.out.println(dcout.get(i));
+		}
+		System.out.println("\n\n");
+
+		System.out.println("IDPC");
+		for (int i = 0; i < dcidp.size(); i += 1) {
+			System.out.println(dcidp.get(i));
+		}
+		System.out.println("\n\n");
 
 
 		// if we get all the input ports, we can line up where each workflow exists
